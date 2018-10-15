@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        ">
+        
+    <!-- 加载db配置文件 -->   
+    <context:property-placeholder location="classpath:db.properties"/> 
+    <!-- 配置spring容器创建时要扫描的包 -->
+    <context:component-scan base-package="cn.QEcode"></context:component-scan>
+   <!-- 配置hibernateTemplate,用于持久层 -->
+   <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+   		<property name="dataSource" ref="dataSource"/>
+		<!-- hibernate参数设置 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 显示sql语句-->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 格式化SQL语句 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- create：根据映射关系生成表 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+			</props>
+		</property>
+   		 <!-- 使用注解后,用该方式指定实体类的包 -->
+   		 <property name="packagesToScan">
+   		 	<array>
+   		 		<value>cn.QEcode.entity</value>
+   		 	</array>
+   		 </property>
+   </bean>
+	<!-- 数据源，与数据库连接 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 数据库驱动 -->
+		<property name="driverClass" value="db.driverClass"/>
+		<!-- 数据库连接地址 -->
+		<property name="jdbcUrl" value="db.jdbcUrl"/>
+		<!-- 用户名 -->
+		<property name="user" value="db.user"/>
+		<!-- 密码 -->
+		<property name="password" value="db.password"/>
+		<!-- 最小连接数 -->
+		<property name="minPoolSize" value="db.minPoolSize"/>
+		<!-- 最大连接数 -->
+		<property name="maxPoolSize" value="db.maxPoolSize"/>
+		<!-- 初始化连接数 -->
+		<property name="initialPoolSize" value="db.initialPoolSize"/>
+	</bean>
+
+   <!-- 配置事务管理器 -->
+   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+   
+   <!-- 开启spring对注解事务的支持 -->
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+ 	    
+        
+        
+        
+        
+        
+</beans>        
+
