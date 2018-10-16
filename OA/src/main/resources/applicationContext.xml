@@ -15,7 +15,7 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         ">
         
-    <!-- 加载db配置文件 -->   
+    <!-- 加载db配置文件 -->
     <context:property-placeholder location="classpath:db.properties"/> 
     <!-- 配置spring容器创建时要扫描的包 -->
     <context:component-scan base-package="cn.QEcode.action"></context:component-scan>
@@ -42,7 +42,7 @@
    		 <!-- 使用注解后,用该方式指定实体类的包 -->
    		 <property name="packagesToScan">
    		 	<array>
-   		 		<value>cn.QEcode.entity</value>
+   		 		<value>cn.QEcode.domain</value>
    		 	</array>
    		 </property>
    </bean>
