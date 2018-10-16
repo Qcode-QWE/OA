@@ -18,7 +18,7 @@
     <!-- 加载db配置文件 -->
     <context:property-placeholder location="classpath:db.properties"/> 
     <!-- 配置spring容器创建时要扫描的包 -->
-    <context:component-scan base-package="cn.QEcode.action"></context:component-scan>
+    <context:component-scan base-package="cn.QEcode"></context:component-scan>
    <!-- 配置hibernateTemplate,用于持久层 -->
    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
    		<property name="sessionFactory" ref="sessionFactory"></property>

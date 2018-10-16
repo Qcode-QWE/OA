@@ -12,6 +12,29 @@
     <constant name="struts.action.extension" value="action"/>
     <!-- 把主题配置成simple -->
 	<constant name="struts.ui.theme" value="simple" />
-
 	
+	
+	<!-- 用户Action -->
+	<package name="userAction" extends="struts-default" namespace="/user">
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/userAction/{1}.jsp</result>
+			<result name="list" type="redirect">userAction_listUI.action</result>
+		</action>
+	</package>
+	
+	<!-- 职位Action -->
+	<package name="roleAction" extends="struts-default" namespace="/role">
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/roleAction/{1}.jsp</result>
+			<result name="list" type="redirect">roleAction_listUI.action</result>
+		</action>
+	</package>
+	
+	<!-- 部门Action -->
+	<package name="departmentAction" extends="struts-default" namespace="/department">
+		<action name="departmentAction_*" class="departmentAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/departmentAction/{1}.jsp</result>
+			<result name="list" type="redirect">departmentAction_listUI.action</result>
+		</action>
+	</package>
 </struts>

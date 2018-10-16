@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>岗位列表</title>
@@ -38,17 +39,17 @@
 		<!--显示数据列表-->
         <tbody id="TableData" class="dataContainer" datakey="roleList">
         
-        <s:iterator value="#roleList">
+        <s:iterator value="%{roles}">
 			<tr class="TableDetail1 template">
 				<td>${name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
 				<td>
-					<s:a action="roleAction_delete?id=%{id}" onclick="return delConfirm()">删除</s:a>
-					<s:a action="roleAction_editUI?id=%{id}">修改</s:a>
-					<a href="setPrivilegeUI.html">设置权限</a>
+					<s:a action="role/roleAction_delete?roleId=%{roleId}" onclick="return delConfirm()">删除</s:a>
+					<s:a action="role/roleAction_editUI?roleId=%{roleId}">修改</s:a>
+					<s:a action="role/roleAction_setPrivilegeUI?roleId=%{roleId}">设置权限</s:a>
 				</td>
 			</tr>
-		</s:iterator>	
+		</s:iterator>
 			
         </tbody>
     </table>
