@@ -5,7 +5,6 @@
     <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
-
 <div id="Title_bar">
     <div id="Title_bar_Head"> 
         <div id="Title_Head"></div>
@@ -32,9 +31,9 @@
         </thead>
         
         <!--显示数据列表-->
-        <tbody id="TableData" class="dataContainer" datakey="userList">
+        <tbody id="TableData" class="dataContainer" datakey="users">
         
-        <s:iterator value="#userList"> 
+        <s:iterator value="%{users}"> 
             <tr class="TableDetail1 template">
                 <td>${loginName}&nbsp;</td>
                 <td>${name}&nbsp;</td>
@@ -47,13 +46,13 @@
                 </td>
                 <td>${description}&nbsp;</td>
                 <td>
-                	<s:a action="userAction_delete?id=%{id}" onclick="return delConfirm()">删除</s:a>
-                    <s:a action="userAction_editUI?id=%{id}">修改</s:a>
-					<s:a action="userAction_initPassword?id=%{id}" onclick="return window.confirm('您确定要初始化密码为1234吗？')">初始化密码</s:a>
+                	<s:a action="userAction_delete?userId=%{userId}" onclick="return delConfirm()">删除</s:a>
+                    <s:a action="userAction_editUI?userId=%{userId}">修改</s:a>
+					<s:a action="userAction_initPassword?userId=%{userId}" onclick="return window.confirm('您确定要初始化密码为1234吗？')">初始化密码</s:a>
                 </td>
             </tr>
         </s:iterator> 
-            
+         
         </tbody>
     </table>
     

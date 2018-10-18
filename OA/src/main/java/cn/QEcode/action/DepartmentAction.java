@@ -91,6 +91,22 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
 	return "list";
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
+
 
     
 }

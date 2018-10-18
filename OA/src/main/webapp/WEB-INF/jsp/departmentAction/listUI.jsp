@@ -5,7 +5,7 @@
 	<%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
- 
+
 <div id="Title_bar">
     <div id="Title_bar_Head">
         <div id="Title_Head"></div>
@@ -30,20 +30,28 @@
         </thead>
 
 		<!--显示数据列表-->
-        <tbody id="TableData" class="dataContainer" datakey="departmentList">
+        <tbody id="TableData" class="dataContainer" datakey="departments">
         
-        <s:iterator value="#departmentList">
+        <s:iterator value="%{departments}">
 			<tr class="TableDetail1 template">
-				<td><s:a action="departmentAction_list?parentId=%{id}">${name}</s:a> &nbsp;</td>
-				<td>${parent.name}&nbsp;</td>
-				<td>${description}&nbsp;</td>
+				<td><s:a action="departmentAction_listUI?parent=%{departmentid}">${name}</s:a> &nbsp;</td>
+				<td>${parent.name}</td>
+				<td>${description}</td>
 				<td>
-					<s:a action="departmentAction_delete?id=%{id}&parentId=%{parent.id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
-					<s:a action="departmentAction_editUI?id=%{id}">修改</s:a>
+					<s:a action="departmentAction_delete?departmentId=%{departmentId}&parent=%{parent.departmentId}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+					<s:a action="departmentAction_editUI?departmentId=%{departmentId}">修改</s:a>
 					&nbsp;
 				</td>
 			</tr>
 		</s:iterator>	
+		
+		
+		
+		
+		
+		
+		
+		
 			
         </tbody>
     </table>
@@ -51,7 +59,7 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+            <s:a action="departmentAction_addUI?parent=%{parent}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
             <s:if test="#parent != null">
 				<s:a action="departmentAction_list?parentId=%{#parent.parent.id}">返回上一级</s:a>
             </s:if>

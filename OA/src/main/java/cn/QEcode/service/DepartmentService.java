@@ -37,6 +37,12 @@ public interface DepartmentService {
      */
     void update(Department department);
 
+    /**
+     * @Description:获取部门名称列表
+     * @return
+     */
+    List<Department> getName();
+
    
 
 }

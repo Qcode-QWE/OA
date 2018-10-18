@@ -26,7 +26,7 @@ import cn.QEcode.domain.User;
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Resource(name="hibernateTemplate")
-    private HibernateTemplate hibernateTemplate;
+    protected HibernateTemplate hibernateTemplate;
     
     private Class<T> clazz;
     

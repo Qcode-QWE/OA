@@ -3,6 +3,7 @@ package cn.QEcode.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 
 /**  
@@ -35,7 +38,7 @@ public class Department {
     private Department parent;
     
     //部门与子部门的关系是一对多
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy="parent",cascade={CascadeType.REMOVE})
     private Set<Department> children = new  HashSet<Department>();
     
     @Column(name="name")
@@ -86,6 +89,14 @@ public class Department {
     }
     public Long getDepartmentId() {
         return departmentId;
+    }
+    public Department(Long departmentId, String name) {
+	super();
+	this.departmentId = departmentId;
+	this.name = name;
+    }
+    public Department() {
+	// TODO 自动生成的构造函数存根
     }
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;

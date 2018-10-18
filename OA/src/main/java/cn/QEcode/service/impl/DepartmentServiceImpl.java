@@ -64,9 +64,19 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @Description:修改部门
      * @param department
      */
-    @Override
+    @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     public void update(Department department) {
 	departmentDao.update(department);
+    }
+
+
+    /**
+     * @Description:获取部门名称列表
+     * @return
+     */
+    @Override
+    public List<Department> getName() {
+	return departmentDao.getName();
     }
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 	<title>用户信息</title>
@@ -18,10 +19,9 @@
     </div>
 </div>
 
-
 <!--显示表单内容-->
 <div id=MainArea>
-
+<s:debug></s:debug>
     <s:form action="userAction_%{id == null ? 'add' : 'edit'}">
     	<s:hidden name="id"></s:hidden>
     
@@ -37,7 +37,7 @@
                     	<td width="100">所属部门</td>
                         <td>
                             <s:select name="departmentId" cssClass="SelectStyle"
-                            	list="#departmentList" listKey="id" listValue="name"
+                            	list="%{departments}" listKey="departmentId" listValue="name"
                             	headerKey="" headerValue="请选择部门">
                             </s:select>
                         </td>
@@ -52,9 +52,6 @@
                     </tr>
 					<tr><td>性别</td>
                         <td>
-                        	<%-- 
-								<s:radio name="gender" list="#{'男':'男', '女':'女'}"></s:radio>
-                        	--%>
 							<s:radio name="gender" list="%{ {'男', '女'} }"></s:radio>
 						</td>
                     </tr>
@@ -84,7 +81,7 @@
                         <td>
                         	<s:select name="roleIds" cssClass="SelectStyle"
                         		multiple="true" size="10" 
-                        		list="#roleList" listKey="id" listValue="name">
+                        		list="%{roleList}" listKey="roleId" listValue="name">
                             </s:select>
 							按住Ctrl键可以多选或取消选择
                         </td>

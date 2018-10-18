@@ -39,7 +39,7 @@ public class Role {
     @ManyToMany(mappedBy="roles")
     private Set<User> users = new HashSet<User>();
     
-
+    
     public String getName() {
         return name;
     }
@@ -68,6 +68,15 @@ public class Role {
     }
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+    
+    public Role(){
+	
+    }
+    
+    public Role(Long roleId, String name) {
+	this.roleId = roleId;
+	this.name = name;
     }
     
     

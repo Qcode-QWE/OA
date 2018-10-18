@@ -12,6 +12,14 @@ import cn.QEcode.domain.User;
 @Repository("UserDao")
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     
+    /**
+     * @Description:初始化密码
+     */
+    @Override
+    public void initPassword(User user) {
+	
+    }
+    
     
     
 }
