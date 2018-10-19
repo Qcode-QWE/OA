@@ -6,7 +6,9 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 
 import cn.QEcode.dao.RoleDao;
 import cn.QEcode.domain.Department;
@@ -15,6 +17,7 @@ import cn.QEcode.domain.User;
 import cn.QEcode.service.DepartmentService;
 import cn.QEcode.service.RoleService;
 import cn.QEcode.service.UserService;
+import cn.QEcode.util.DepartmentUtils;
 
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -27,7 +30,8 @@ import com.opensymphony.xwork2.ModelDriven;
 * @version 1.0  
 */ 
 @Controller("userAction")
-public class UserAction implements ModelDriven<User> {
+@Scope("prototype")
+public class UserAction{
    
     private User user = new User();
     @Resource(name="UserService")
@@ -44,14 +48,10 @@ public class UserAction implements ModelDriven<User> {
     //职位名称列表
     private List<Role> roleList;
     //获取页面返回的职位id列表
-    private Long[] roleIds;	
+    private Long[] roleIds;
     
     
     
-    
-    public User getModel(){
-	return user;
-    }
     
     /**
      * @Description:列表页面
@@ -68,6 +68,7 @@ public class UserAction implements ModelDriven<User> {
      * @return
      */
     public String addUI(){
+	user = new User();
 	//获取部门名称列表
 	departments = departmentService.getName();
 	//获取职位名称列表
@@ -81,6 +82,9 @@ public class UserAction implements ModelDriven<User> {
      */
     public String add(){
 	
+	List<Role> roles = roleService.findByIds(roleIds);
+	user.setRoles(new HashSet<Role>(roles));
+	user.setPassword(DigestUtils.md5DigestAsHex("123".getBytes()));
 	
 	userService.save(user);
 	return "list";
@@ -96,14 +100,39 @@ public class UserAction implements ModelDriven<User> {
     }
     
     /**
+     * @Description:初始化密码为123
+     * @return
+     */
+    public String initPassword(){
+	user = userService.findById(user.getUserId());
+	user.setPassword(DigestUtils.md5DigestAsHex("123".getBytes()));
+	userService.update(user);
+	return "list";
+    }
+    
+    
+    /**
      * @Description:修改页面
      * @return
      */
     public String editUI(){
+	
+	user = userService.findById(user.getUserId());
+	//获取顶级部门列表
+	List<Department> topList = departmentService.findToList();
 	//获取部门名称列表
-    	//departments = departmentService.getName();
+    	departments = DepartmentUtils.getTree(topList);
     	//获取职位名称列表
-    	//roleList = roleService.findAll();
+    	roleList = roleService.findAll();
+    	//获取用户的职位列表
+    	if(user.getRoles()!=null){
+    	    	roleIds = new Long[user.getRoles().size()+1];
+        	int i = 0;
+        	for (Role role : user.getRoles()) {
+        	    roleIds[i++] = role.getRoleId();  
+        	}
+    	}
+    	
     	
 	return "editUI";
     }
@@ -114,13 +143,13 @@ public class UserAction implements ModelDriven<User> {
      */
     public String edit(){
 	
+	List<Role> roles = roleService.findByIds(roleIds);
+	user.setRoles(new HashSet<Role>(roles));
+	userService.update(user);
 	return "list";
     }
     
-    public String initPassword(){
-	userService.initPassword(user);
-	return "list";
-    }
+
 
     public User getUser() {
         return user;

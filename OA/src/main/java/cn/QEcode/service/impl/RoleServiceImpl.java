@@ -70,6 +70,17 @@ public class RoleServiceImpl implements RoleService {
     }
 
 
+    /**
+     * @Description:根据id数组查询职位
+     * @param roleIds
+     * @return
+     */
+    @Override
+    public List<Role> findByIds(Long[] roleIds) {
+	return roleDao.findByIds(roleIds);
+    }
+
+
     
     
     

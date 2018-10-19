@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -21,6 +22,7 @@ import cn.QEcode.service.RoleService;
 * @version 1.0  
 */ 
 @Controller("roleAction")
+@Scope("prototype")
 public class RoleAction implements ModelDriven<Role>{
     
     @Resource(name="RoleService")

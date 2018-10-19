@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Department;
@@ -23,6 +24,7 @@ import com.opensymphony.xwork2.ModelDriven;
 * @version 1.0  
 */ 
 @Controller("departmentAction")
+@Scope("prototype")
 public class DepartmentAction {
     
     private Department department;

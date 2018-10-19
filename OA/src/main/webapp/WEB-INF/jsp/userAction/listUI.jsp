@@ -37,7 +37,7 @@
             <tr class="TableDetail1 template">
                 <td>${loginName}&nbsp;</td>
                 <td>${name}&nbsp;</td>
-                <td>${department.name}&nbsp;</td>
+                <td>${departmentId.name}&nbsp;</td>
                 <td>
                 	<s:iterator value="roles">
                 		${name}&nbsp;
@@ -46,9 +46,9 @@
                 </td>
                 <td>${description}&nbsp;</td>
                 <td>
-                	<s:a action="userAction_delete?userId=%{userId}" onclick="return delConfirm()">删除</s:a>
-                    <s:a action="userAction_editUI?userId=%{userId}">修改</s:a>
-					<s:a action="userAction_initPassword?userId=%{userId}" onclick="return window.confirm('您确定要初始化密码为1234吗？')">初始化密码</s:a>
+                	<s:a action="userAction_delete?user.userId=%{userId}" onclick="return delConfirm()">删除</s:a>
+                    <s:a action="userAction_editUI?user.userId=%{userId}">修改</s:a>
+					<s:a action="userAction_initPassword?user.userId=%{userId}" onclick="return window.confirm('您确定要初始化密码为123吗？')">初始化密码</s:a>
                 </td>
             </tr>
         </s:iterator> 

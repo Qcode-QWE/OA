@@ -38,5 +38,12 @@ public interface RoleService {
      */
     public void update(Role role);
 
+    /**
+     * @Description:根据id数组查询职位
+     * @param roleIds
+     * @return
+     */
+    public List<Role> findByIds(Long[] roleIds);
+
 
 }

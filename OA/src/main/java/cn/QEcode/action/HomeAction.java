@@ -1,8 +1,10 @@
 package cn.QEcode.action;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller("homeAction")
+@Scope("prototype")
 public class HomeAction {
     public String index(){
 	return "index";

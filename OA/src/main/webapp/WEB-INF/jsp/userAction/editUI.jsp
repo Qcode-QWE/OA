@@ -22,7 +22,7 @@
 <!--显示表单内容-->
 <div id=MainArea>
 <s:debug></s:debug>
-    <s:form action="userAction_add">
+    <s:form action="userAction_edit">
     	<s:hidden name="UserId"></s:hidden>
     
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
@@ -36,7 +36,7 @@
                     <tr>
                     	<td width="100">所属部门</td>
                         <td>
-                            <s:select name="departmentId" cssClass="SelectStyle"
+                            <s:select name="user.departmentId.departmentId" cssClass="SelectStyle"
                             	list="%{departments}" listKey="departmentId" listValue="name"
                             	headerKey="" headerValue="请选择部门">
                             </s:select>
