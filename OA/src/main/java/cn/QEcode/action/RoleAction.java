@@ -67,7 +67,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @return
      */
     public String delete(){
-	roleService.delete(role);
+	roleService.delete(role.getRoleId());
 	return "list";
     }
     

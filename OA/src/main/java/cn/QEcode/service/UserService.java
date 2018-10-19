@@ -17,7 +17,7 @@ public interface UserService {
      * @Description:删除用户
      * @param 
      */
-    public void delete(User user);
+    public void delete(Long id);
 
     /**
      * @Description:增加用户

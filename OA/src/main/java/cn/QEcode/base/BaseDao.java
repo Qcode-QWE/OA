@@ -24,10 +24,10 @@ public interface BaseDao<T> {
     public void update(T entity);
     
     /**
-     * @Description:删除实体
-     * @param entity
+     * @Description:根据id删除实体
+     * @param id
      */
-    public void delete(T entity);
+    public void delete(Long id);
     
     
     /**

@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>部门列表</title>
 	<%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
-
 <div id="Title_bar">
     <div id="Title_bar_Head">
         <div id="Title_Head"></div>
@@ -34,35 +34,27 @@
         
         <s:iterator value="%{departments}">
 			<tr class="TableDetail1 template">
-				<td><s:a action="departmentAction_listUI?parent=%{departmentid}">${name}</s:a> &nbsp;</td>
+				<td><s:a action="departmentAction_listUI?parentId=%{departmentId}">${name}</s:a> &nbsp;</td>
 				<td>${parent.name}</td>
 				<td>${description}</td>
 				<td>
-					<s:a action="departmentAction_delete?departmentId=%{departmentId}&parent=%{parent.departmentId}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
-					<s:a action="departmentAction_editUI?departmentId=%{departmentId}">修改</s:a>
+					<s:a action="departmentAction_delete?department.departmentId=%{departmentId}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+					<s:a action="departmentAction_editUI?department.departmentId=%{departmentId}">修改</s:a>
 					&nbsp;
 				</td>
 			</tr>
 		</s:iterator>	
-		
-		
-		
-		
-		
-		
-		
-		
-			
         </tbody>
     </table>
     
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="departmentAction_addUI?parent=%{parent}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
-            <s:if test="#parent != null">
-				<s:a action="departmentAction_list?parentId=%{#parent.parent.id}">返回上一级</s:a>
-            </s:if>
+            <s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+           <c:if test="${departments==null||parentId != null }">
+           	<s:a action="departmentAction_listUI?parentId=%{parent.parent.departmentId}">返回上一级</s:a>
+           </c:if>
+           	
         </div>
     </div>
 </div>

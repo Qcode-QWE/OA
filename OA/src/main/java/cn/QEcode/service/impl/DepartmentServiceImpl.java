@@ -42,9 +42,9 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @Description:删除部门
      * @param department
      */
-    @Override
+    @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     public void delete(Department department) {
-	departmentDao.delete(department);
+	departmentDao.delete(department.getDepartmentId());
     }
 
 
@@ -55,7 +55,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     @Override
     public Department findById(Long departmentId) {
-	
 	return departmentDao.findById(departmentId);
     }
 
@@ -79,4 +78,33 @@ public class DepartmentServiceImpl implements DepartmentService {
 	return departmentDao.getName();
     }
 
+
+    /**
+     * @Description:查询顶级部门
+     * @return
+     */
+    @Override
+    public List<Department> findToList() {
+	
+	return departmentDao.findToList();
+    }
+
+
+    /**
+     * @Description:查询子级部门
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Department> findChildren(Long parentId) {
+	
+	return departmentDao.findChildren(parentId);
+    }
+    
+    
+    
+    
+    
+    
+    
 }

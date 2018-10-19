@@ -51,6 +51,7 @@ public class Department {
     @OneToMany(mappedBy="departmentId")
     private Set<User> users = new HashSet<User>();
     
+    
    
     public Department getParent() {
         return parent;

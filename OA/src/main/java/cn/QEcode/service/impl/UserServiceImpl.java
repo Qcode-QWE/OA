@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
      * @param 
      */
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
-    public void delete(User user){
-	userDao.delete(user);
+    public void delete(Long id){
+	userDao.delete(id);
     }
 
     /**

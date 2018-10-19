@@ -37,4 +37,11 @@
 			<result name="list" type="redirect">departmentAction_listUI.action</result>
 		</action>
 	</package>
+	
+	<!-- 主页Action -->
+	<package name="homeAction" extends="struts-default" namespace="/home">
+		<action name="homeAction_*" class="homeAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+		</action>
+	</package>
 </struts>

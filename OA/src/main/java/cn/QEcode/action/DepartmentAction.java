@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Department;
 import cn.QEcode.service.DepartmentService;
+import cn.QEcode.util.DepartmentUtils;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -22,26 +23,31 @@ import com.opensymphony.xwork2.ModelDriven;
 * @version 1.0  
 */ 
 @Controller("departmentAction")
-public class DepartmentAction extends ActionSupport implements ModelDriven<Department> {
+public class DepartmentAction {
     
-    private Department department = new Department();
+    private Department department;
     @Resource(name="DepartmentService")
     private DepartmentService departmentService ;
     
     private List<Department> departments;
     
-    @Override
-    public Department getModel() {
-	
-	return department;
-    }
+    private Long parentId;
+    
+    private Department parent;
+    
     
     /**
      * @Description:列表页面
      * @return
      */
     public String listUI(){
-	departments = departmentService.findAll();
+	//查询顶级部门
+	if(parentId == null){
+	    departments = departmentService.findToList();
+	}else{
+	    departments = departmentService.findChildren(parentId);
+	    parent = departmentService.findById(parentId);
+	}
 	return "listUI";
     }
     
@@ -50,7 +56,8 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
      * @return
      */
     public String addUI(){
-	
+	department = new Department();
+	parent = departmentService.findById(parentId);
 	return "addUI";
     }
     
@@ -59,6 +66,7 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
      * @return
      */
     public String add(){
+	department.setParent(parent);
 	departmentService.add(department);
 	return "list";
     }
@@ -77,8 +85,10 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
      * @return
      */
     public String editUI(){
-	Department d = departmentService.findById(department.getDepartmentId());
-	BeanUtils.copyProperties(d, department);
+	//departments = departmentService.findAll();
+	
+	departments = DepartmentUtils.getTree(departmentService.findToList());
+	department = departmentService.findById(department.getDepartmentId());
 	return "editUI";
     }
     
@@ -87,6 +97,7 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
      * @return
      */
     public String edit(){
+	//department.setParent(departmentService.findById(parentId));
 	departmentService.update(department);
 	return "list";
     }
@@ -105,6 +116,22 @@ public class DepartmentAction extends ActionSupport implements ModelDriven<Depar
 
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Department getParent() {
+        return parent;
+    }
+
+    public void setParent(Department parent) {
+        this.parent = parent;
     }
 
 

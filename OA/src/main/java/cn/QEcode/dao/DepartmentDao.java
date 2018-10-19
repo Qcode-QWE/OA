@@ -13,4 +13,17 @@ public interface DepartmentDao extends BaseDao<Department> {
      */
     List<Department> getName();
 
+    /**
+     * @Description:获取顶级部门
+     * @return
+     */
+    List<Department> findToList();
+
+    /**
+     * @Description:查询子级部门
+     * @param parentId
+     * @return
+     */
+    List<Department> findChildren(Long parentId);
+
 }

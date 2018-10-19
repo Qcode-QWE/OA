@@ -91,7 +91,7 @@ public class UserAction implements ModelDriven<User> {
      * @return
      */
     public String delete(){
-	userService.delete(user);
+	userService.delete(user.getUserId());
 	return "list";
     }
     

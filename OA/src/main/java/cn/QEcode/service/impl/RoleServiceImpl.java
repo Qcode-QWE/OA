@@ -34,8 +34,8 @@ public class RoleServiceImpl implements RoleService {
     * @param role
     */
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
-    public void delete(Role role) {
-	roleDao.delete(role);
+    public void delete(Long id) {
+	roleDao.delete(id);
     }
 
 

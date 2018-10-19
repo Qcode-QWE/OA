@@ -55,13 +55,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void update(T entity){
 	hibernateTemplate.update(entity);
     }
-    
+
     /**
-     * @Description:删除实体
-     * @param entity
+     * @Description:根据id删除实体
+     * @param id
      */
-    public void delete(T entity){
-	hibernateTemplate.delete(entity);
+    public void delete(Long id){
+	Object object = hibernateTemplate.get(clazz, id);
+	hibernateTemplate.delete(object);
     }
     
     

@@ -17,7 +17,7 @@ public interface RoleService {
      * @Description:删除职位
      * @param role
      */
-    public void delete(Role role);
+    public void delete(Long id);
 
     /**
      * @Description:增加职位

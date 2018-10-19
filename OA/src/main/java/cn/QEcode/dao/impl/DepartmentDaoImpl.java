@@ -20,4 +20,25 @@ public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements Depart
 	return (List<Department>) hibernateTemplate.find("select new Department(departmentId,name) from Department");
     }
 
+    /**
+     * @Description:获取顶级部门列表
+     * @return
+     */
+    @Override
+    public List<Department> findToList() {
+	
+	return (List<Department>) hibernateTemplate.find("from Department where parent is null");
+    }
+
+    /**
+     * @Description:查询子级部门
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Department> findChildren(Long parentId) {
+	
+	return (List<Department>) hibernateTemplate.find("from Department where parent.departmentId = ? ",parentId);
+    }
+
 }
