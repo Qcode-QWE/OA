@@ -24,6 +24,7 @@
 		<default-interceptor-ref name="myStack"></default-interceptor-ref>
 		<global-results>
 			<result name="loginUI">/WEB-INF/jsp/userAction/loginUI.jsp</result>
+			<result name="noPrivilegeError">/noPrivilegeError.jsp</result>
 		</global-results>
 		
 	</package>

@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.ActionContext;
+
 
 /**  
 * <p>Title: User.java</p>  
@@ -80,6 +82,34 @@ public class User {
 	    return true;
 	}
 	return false;
+    }
+    
+    public boolean hasPrivilegeByUrl(String privilegeUrl){
+	String uu = privilegeUrl;
+	//获取XXX/XXX/XXAction_xxx中XXAction_xxx
+	//获取最后一个/的位置
+	int index = uu.lastIndexOf("/");
+	String url = uu;
+	//获取XXAction_xxx
+	if(index!=-1){
+	    url = uu.substring(index+1);
+	}
+	//去掉url后可能存在的?
+	index = url.indexOf("?");
+	if(index!=-1){
+	    url = url.substring(0,index);
+	}
+	//去掉url中的UI,方便判断
+	index = url.indexOf("UI");
+	if(index!=-1){
+	    url = url.substring(0, index);
+	}
+	Set<String> urlSet = (Set<String>) ActionContext.getContext().getSession().get("urlSet");
+	if(urlSet!=null&&urlSet.contains(url)){
+	    return true;
+	}else{
+	    return false;
+	}
     }
 
     public String getLoginName() {

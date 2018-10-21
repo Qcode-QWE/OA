@@ -9,8 +9,13 @@ public interface PrivilegeDao extends BaseDao<Privilege> {
 
     /**
      * @Description:查询顶级权限
-     * @return
+     * @returnT
      */
     List<Privilege> findTopList();
+    /**
+     * @Description:查询所有权限url,且不为空
+     * @return
+     */
+    List<Privilege> findAllPrivileges();
     
 }

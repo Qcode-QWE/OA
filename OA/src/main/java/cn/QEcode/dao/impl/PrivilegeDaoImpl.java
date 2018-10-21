@@ -20,5 +20,13 @@ public class PrivilegeDaoImpl extends BaseDaoImpl<Privilege> implements Privileg
 	
 	return (List<Privilege>) hibernateTemplate.find(" from Privilege where parent is null");
     }
+    /**
+     * @Description:查询所有权限url,且不为空
+     * @return
+     */
+    @Override
+    public List<Privilege> findAllPrivileges() {
+	return (List<Privilege>) hibernateTemplate.find("select new Privilege(url) from Privilege where url is not null");
+    }
 
 }

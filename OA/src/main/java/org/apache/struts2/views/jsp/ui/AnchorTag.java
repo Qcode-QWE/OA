@@ -78,30 +78,9 @@ public class AnchorTag extends AbstractClosingTag {
 	    return super.doEndTag();
 	}
 	
-	String uu = action;
-	System.out.println(uu);
-	//获取XXX/XXX/XXAction_xxx中XXAction_xxx
-	//获取最后一个/的位置
-	int index = uu.lastIndexOf("/");
-	//获取XXAction_xxx
-	String url = uu.substring(index+1, action.length());
-	System.out.println(uu+ "   "+ url);
-	//去掉url后可能存在的?
-	index = url.indexOf("?");
-	if(index!=-1){
-	    url = url.substring(0,index);
-	}
-	//去掉url中的UI,方便判断
-	index = url.indexOf("UI");
-	if(index!=-1){
-	    url = url.substring(0, index);
-	}
-	System.out.println(url);
-	Set<String> urlSet = (Set<String>) ActionContext.getContext().getSession().get("urlSet");
-	
-	if(urlSet!=null&&urlSet.contains(url)){
+	if(user.hasPrivilegeByUrl(action)){
 	    return super.doEndTag();
-	}else{
+	}else {
 	    return EVAL_PAGE;
 	}
     }

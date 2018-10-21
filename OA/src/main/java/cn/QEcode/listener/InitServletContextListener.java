@@ -1,5 +1,6 @@
 package cn.QEcode.listener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,8 @@ import javax.servlet.ServletContextListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.opensymphony.xwork2.ActionContext;
 
 import cn.QEcode.domain.Privilege;
 import cn.QEcode.service.PrivilegeService;
@@ -42,6 +45,13 @@ public class InitServletContextListener implements ServletContextListener {
 	
 	System.out.println("-------顶级菜单已准备好----");
 	
+	//获取所有权限url
+	List<Privilege> privileges = privilegeService.findAllPrivileges();
+	List<String> allPrivileges = new ArrayList<String>();
+	for(Privilege privilege : privileges){
+	    allPrivileges.add(privilege.getUrl());
+	}
+	application.setAttribute("allPrivilegeUrl", allPrivileges);
     }
 
     /**

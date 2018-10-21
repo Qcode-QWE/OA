@@ -76,5 +76,15 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     public List<Privilege> findtopList() {
 	return privilegeDao.findTopList();
     }
+
+    /**
+     * @Description:查询所有权限url,且不为空
+     * @return
+     */
+    @Override
+    public List<Privilege> findAllPrivileges() {
+	// TODO 自动生成的方法存根
+	return privilegeDao.findAllPrivileges();
+    }
     
 }

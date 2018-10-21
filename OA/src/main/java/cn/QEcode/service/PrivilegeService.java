@@ -20,6 +20,12 @@ public interface PrivilegeService extends BaseService<Privilege> {
      * @return
      */
     List<Privilege> findtopList();
+
+    /**
+     * @Description:查询所有权限url,且不为空
+     * @return
+     */
+    List<Privilege> findAllPrivileges();
     
     
 }

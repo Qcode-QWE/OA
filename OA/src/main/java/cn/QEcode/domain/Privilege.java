@@ -29,7 +29,12 @@ import com.alibaba.fastjson.parser.Feature;
 @Entity
 @Table(name="privilege")
 public class Privilege {
-    	@Id
+    	public Privilege(String url) {
+	super();
+	this.url = url;
+    }
+
+	@Id
     	@Column(name="privilege_id")
     	@GeneratedValue(strategy=GenerationType.IDENTITY)
     	private Long privilegeId;
