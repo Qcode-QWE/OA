@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.engine.profile.Fetch;
 
 
 /**  
@@ -39,6 +41,7 @@ public class Department {
     
     //部门与子部门的关系是一对多
     @OneToMany(mappedBy="parent",cascade={CascadeType.REMOVE})
+    @OrderBy("departmentId")
     private Set<Department> children = new  HashSet<Department>();
     
     @Column(name="name")

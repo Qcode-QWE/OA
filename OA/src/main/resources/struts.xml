@@ -12,18 +12,34 @@
     <constant name="struts.action.extension" value="action"/>
     <!-- 把主题配置成simple -->
 	<constant name="struts.ui.theme" value="simple" />
+	<!-- 定义拦截器 -->
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="CheckPrivilegeInterceptor" class="cn.QEcode.interceptor.CheckPrivilegeInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="CheckPrivilegeInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		<global-results>
+			<result name="loginUI">/WEB-INF/jsp/userAction/loginUI.jsp</result>
+		</global-results>
+		
+	</package>
 	
 	
 	<!-- 用户Action -->
-	<package name="userAction" extends="struts-default" namespace="/user">
+	<package name="userAction" extends="default" namespace="/user">
 		<action name="userAction_*" class="userAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/userAction/{1}.jsp</result>
 			<result name="list" type="redirect">userAction_listUI.action</result>
+			<result name="toIndex" type="redirect">/index.jsp</result>
 		</action>
 	</package>
 	
 	<!-- 职位Action -->
-	<package name="roleAction" extends="struts-default" namespace="/role">
+	<package name="roleAction" extends="default" namespace="/role">
 		<action name="roleAction_*" class="roleAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/roleAction/{1}.jsp</result>
 			<result name="list" type="redirect">roleAction_listUI.action</result>
@@ -31,15 +47,15 @@
 	</package>
 	
 	<!-- 部门Action -->
-	<package name="departmentAction" extends="struts-default" namespace="/department">
+	<package name="departmentAction" extends="default" namespace="/department">
 		<action name="departmentAction_*" class="departmentAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/departmentAction/{1}.jsp</result>
-			<result name="list" type="redirect">departmentAction_listUI.action</result>
+			<result name="list" type="redirect">departmentAction_listUI.action?parentId=${parentId}</result>
 		</action>
 	</package>
 	
 	<!-- 主页Action -->
-	<package name="homeAction" extends="struts-default" namespace="/home">
+	<package name="homeAction" extends="default" namespace="/home">
 		<action name="homeAction_*" class="homeAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
 		</action>

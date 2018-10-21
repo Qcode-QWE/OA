@@ -23,7 +23,7 @@
 <div id=MainArea>
 <s:debug></s:debug>
     <s:form action="userAction_edit">
-    	<s:hidden name="UserId"></s:hidden>
+    	<s:hidden name="user.userId"></s:hidden>
     
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
         	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 用户信息 </div> 
@@ -56,14 +56,14 @@
 						</td>
                     </tr>
 					<tr><td>联系电话</td>
-                        <td><s:textfield name="user.phoneNumber" cssClass="InputStyle"/></td>
+                        <td><s:textfield name="user.phone" cssClass="InputStyle"/></td>
                     </tr>
                     <tr><td>E-mail</td>
                         <td><s:textfield name="user.email" cssClass="InputStyle"/></td>
                     </tr>
-                    <tr><td>备注</td>
+                    <%-- <tr><td>备注</td>
                         <td><s:textarea name="user.description" cssClass="TextareaStyle"></s:textarea></td>
-                    </tr>
+                    </tr> --%>
                 </table>
             </div>
         </div>

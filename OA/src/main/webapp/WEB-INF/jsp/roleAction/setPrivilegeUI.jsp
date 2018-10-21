@@ -52,7 +52,7 @@
 <div id=MainArea>
 
     <s:form action="roleAction_setPrivilege">
-    	<s:hidden name="id"></s:hidden>
+    	<s:hidden name="roleId"></s:hidden>
         
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
         	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 正在为【${role.name}】配置权限 </div> 
@@ -79,9 +79,9 @@
 							<!-- 显示权限树 -->
 							<td>
 							
-<%-- 使用Struts2的自定义标签
-<s:checkboxlist name="privilegeIds" list="#privilegeList" listKey="id" listValue="name"></s:checkboxlist>				
---%>
+<%-- 使用Struts2的自定义标签 --%>
+<%-- <s:checkboxlist name="privilegeIds" list="%{privilegeList}" listKey="privilegeId" listValue="name"></s:checkboxlist>				
+ --%>
 
 <%-- 直接写HTML，并自行实现回显效果 
 <s:iterator value="#privilegeList">
@@ -95,22 +95,22 @@
 
 <ul id="root">
 <%-- 第一级 --%>
-<s:iterator value="#topPrivilegeList">
+<s:iterator value="%{topList}">
 	<li>
-		<input type="checkbox" name="privilegeIds" value="${id}" id="cb_${id}" <s:property value="%{id in privilegeIds ? 'checked' : ''}"/> >
-		<label for="cb_${id}"><span class="folder">${name}</span></label>
+		<input type="checkbox" name="privilegeIds" value="${privilegeId}" id="cb_${privilegeId}" <s:property value="%{privilegeId in privilegeIds ? 'checked' : ''}"/> >
+		<label for="cb_${privilegeId}"><span class="folder">${name}</span></label>
 		<ul>
 		<%-- 第二级 --%>
 		<s:iterator value="children">
 			<li>
-				<input type="checkbox" name="privilegeIds" value="${id}" id="cb_${id}" <s:property value="%{id in privilegeIds ? 'checked' : ''}"/> >
-				<label for="cb_${id}"><span class="folder">${name}</span></label>
+				<input type="checkbox" name="privilegeIds" value="${privilegeId}" id="cb_${privilegeId}" <s:property value="%{privilegeId in privilegeIds ? 'checked' : ''}"/> >
+				<label for="cb_${privilegeId}"><span class="folder">${name}</span></label>
 				<ul>
 				<%-- 第三级 --%>
 				<s:iterator value="children">
 					<li>
-						<input type="checkbox" name="privilegeIds" value="${id}" id="cb_${id}" <s:property value="%{id in privilegeIds ? 'checked' : ''}"/> >
-						<label for="cb_${id}"><span class="folder">${name}</span></label>
+						<input type="checkbox" name="privilegeIds" value="${privilegeId}" id="cb_${privilegeId}" <s:property value="%{privilegeId in privilegeIds ? 'checked' : ''}"/> >
+						<label for="cb_${privilegeId}"><span class="folder">${name}</span></label>
 					</li>
 				</s:iterator>
 				</ul>

@@ -17,7 +17,7 @@
                     </div>
 					<div id=LogoutOperate>
                         <img src="${pageContext.request.contextPath}/style/blue/images/logout/logout2.gif" border=0> 
-                        <a href="${pageContext.request.contextPath}/userAction_loginUI.action">重新进入系统</a> 
+                        <a href="${pageContext.request.contextPath}/user/userAction_loginUI.action">重新进入系统</a> 
                         <img src="${pageContext.request.contextPath}/style/blue/images/logout/logout3.gif" border=0> 
                         <a href="javascript: window.open('','_self');window.close();">关闭当前窗口</a>
                     </div>

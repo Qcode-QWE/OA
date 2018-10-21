@@ -1,10 +1,12 @@
 package cn.QEcode.domain;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,10 +56,31 @@ public class User {
     private Department departmentId;
     
     //use与职位的关系是多对多的关系
-    @ManyToMany(targetEntity=Role.class)
+    @ManyToMany(targetEntity=Role.class,fetch=FetchType.EAGER)
     @JoinColumn(name="roles",referencedColumnName="roles_id")
     private Set<Role> roles = new HashSet<Role>();
     
+    
+    public boolean hasPrivilegeByName(String privilegeName,Set<String> set){
+	//如果是超级管理员,拥有全部权限
+	if("admin".equals(loginName)){
+	    return true;
+	}
+	
+	/*for(Role role:roles){
+	    for(Privilege privilege : role.getPrivileges()){
+		System.out.println(privilege.getName()+"  "+privilegeName);
+		if(privilege.getName().equals(privilegeName)){
+		    System.out.println(privilegeName);
+		    return true;
+		}
+	    }
+	}*/
+	if(set.contains(privilegeName)){
+	    return true;
+	}
+	return false;
+    }
 
     public String getLoginName() {
         return loginName;
@@ -119,6 +142,9 @@ public class User {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+
+
     
     
     

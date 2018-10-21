@@ -1,5 +1,8 @@
 package cn.QEcode.action;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ModelDriven;
 
+import cn.QEcode.domain.Privilege;
 import cn.QEcode.domain.Role;
+import cn.QEcode.service.PrivilegeService;
 import cn.QEcode.service.RoleService;
 
 
@@ -27,13 +32,21 @@ public class RoleAction implements ModelDriven<Role>{
     
     @Resource(name="RoleService")
     private RoleService roleService;
+    @Resource(name="PrivilegeService")
+    private PrivilegeService privilegeService;
     
     private Role role = new Role();
     private List<Role> roles;
     
+    private Long[] privilegeIds;
+    private List<Privilege> privilegeList;
+    private List<Privilege> topList;
+    
+    
     @Override
     public Role getModel() {
 	// TODO 自动生成的方法存根
+	System.out.println(role.getName());
 	return role;
     }
     
@@ -51,7 +64,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @return
      */
     public String addUI(){
-	role = new Role();
+	System.out.println(role);
 	return "addUI";
     }
     
@@ -91,6 +104,44 @@ public class RoleAction implements ModelDriven<Role>{
 	roleService.update(role);
 	return "list";
     }
+    
+    
+    /**
+     * @Description:设置权限页面
+     * @return
+     */
+    public String setPrivilegeUI(){
+	role = roleService.findById(role.getRoleId());
+	//获取权限列表
+	//privilegeList = privilegeService.findAll();
+	//查询
+	topList = privilegeService.findtopList();
+	//回显数据
+	if(role.getPrivileges()!=null){
+	    int i = 0;
+	    privilegeIds = new Long[role.getPrivileges().size()+1];
+	    for(Privilege privilege : role.getPrivileges()){
+		privilegeIds[i++] = privilege.getPrivilegeId();
+	    }
+	}
+	return "setPrivilegeUI";
+    }
+    
+    /**
+     * @Description:设置权限
+     * @return
+     */
+    public String setPrivilege(){
+	List<Privilege> list = privilegeService.findByIds(privilegeIds);
+	role = roleService.findById(role.getRoleId());
+	role.setPrivileges(new HashSet<Privilege>(list));
+	roleService.update(role);
+	return "list";	
+    }
+    
+    
+    
+    
 
     public Role getRole() {
         return role;
@@ -106,6 +157,30 @@ public class RoleAction implements ModelDriven<Role>{
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Long[] getPrivilegeIds() {
+        return privilegeIds;
+    }
+
+    public void setPrivilegeIds(Long[] privilegeIds) {
+        this.privilegeIds = privilegeIds;
+    }
+
+    public List<Privilege> getPrivilegeList() {
+        return privilegeList;
+    }
+
+    public void setPrivilegeList(List<Privilege> privilegeList) {
+        this.privilegeList = privilegeList;
+    }
+
+    public List<Privilege> getTopList() {
+        return topList;
+    }
+
+    public void setTopList(List<Privilege> topList) {
+        this.topList = topList;
     }
 
     

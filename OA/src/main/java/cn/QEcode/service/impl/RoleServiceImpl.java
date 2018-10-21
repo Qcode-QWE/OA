@@ -65,7 +65,6 @@ public class RoleServiceImpl implements RoleService {
      */
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     public void update(Role role) {
-	
 	roleDao.update(role);
     }
 

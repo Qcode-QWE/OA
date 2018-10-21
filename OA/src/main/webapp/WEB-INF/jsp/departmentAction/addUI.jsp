@@ -37,10 +37,6 @@
                 <table cellpadding="0" cellspacing="0" class="mainForm">
                     <tr><td width="100">上级部门</td>
                         <td>
-                            <%-- <s:select name="parentId" cssClass="SelectStyle"
-                        		list="%{departments}" listKey="departmentId" listValue="name"
-                        		headerKey="" headerValue="请选择部门"
-                        	/>  --%>
                         	<select name="parentId">
                         		<option value="${parentId}">${parent.name}</option>
                         	</select>

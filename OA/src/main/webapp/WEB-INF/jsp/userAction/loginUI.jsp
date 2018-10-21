@@ -35,7 +35,7 @@
                     <tr>
                         <td width=45 class="Subject"><img border="0" src="${pageContext.request.contextPath}/style/blue/images/login/userId.gif" /></td>
                         <td>
-                        	<s:textfield name="loginName" size="20" tabindex="1" cssClass="TextField required" id="loginNameInput" />
+                        	<s:textfield name="user.loginName" size="20" tabindex="1" cssClass="TextField required" id="loginNameInput" />
                         </td>
                         <td rowspan="2" style="padding-left:10px;">
                         	<input type="image" tabindex="3" src="${pageContext.request.contextPath}/style/blue/images/login/userLogin_button.gif" />
@@ -43,11 +43,11 @@
                     </tr>
                     <tr>
                         <td class="Subject"><img border="0" src="${pageContext.request.contextPath}/style/blue/images/login/password.gif" /></td>
-                        <td><s:password name="password" id="aa" size="20" tabindex="2" showPassword="false" cssClass="TextField required" /></td>
+                        <td><s:password name="user.password" id="aa" size="20" tabindex="2" showPassword="false" cssClass="TextField required" /></td>
                     </tr>
                 </table>
             </div>
-            <div id="CopyRight"><a href="javascript:void(0)">&copy; 2010 版权所有 itcast</a></div>
+            <div id="CopyRight"><a href="javascript:void(0)">&copy; </a></div>
         </div>
     </div>
     </s:form>

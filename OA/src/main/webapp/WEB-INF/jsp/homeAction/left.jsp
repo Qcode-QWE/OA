@@ -18,24 +18,24 @@
 
     <ul id="MenuUl">
 		<%-- 顶级菜单 --%>
-		<s:iterator value="#application.topPrivilegeList">
-		<s:if test="#session.user.hasPrivilegeByName(name)">
+		<s:iterator value="#application.topPrivileges">
+		<s:if test="#session.user.hasPrivilegeByName(name,#session.set)">
 	        <li class="level1">
 	            <div onClick="menuClick(this);" class="level1Style">
-	            	<img src="style/images/MenuIcon/${icon}" class="Icon" /> 
+	            	<img src="${pageContext.request.contextPath}/style/images/MenuIcon/${icon}" class="Icon" /> 
 	            	${name}
 	            </div>
 	            <%-- 二级菜单 display: none; --%>
 	            <ul style="" class="MenuLevel2">
 	            	<s:iterator value="children">
-	            	<s:if test="#session.user.hasPrivilegeByName(name)">
-		                <li class="level2">
-		                    <div class="level2Style">
-			                    <img src="style/images/MenuIcon/menu_arrow_single.gif" /> 
-			                    <a target="right" href="${pageContext.request.contextPath}/${url}.action"> ${name}</a>
-		                 	</div>
-		                </li>
-	                </s:if>
+		            	<s:if test="#session.user.hasPrivilegeByName(name,#session.set)">
+			                <li class="level2">
+			                    <div class="level2Style">
+				                    <img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 
+				                    <a target="right" href="${pageContext.request.contextPath}/${url}UI.action"> ${name}</a>
+			                 	</div>
+			                </li>
+		                </s:if>
 	            	</s:iterator>
 	            </ul>
 	        </li>

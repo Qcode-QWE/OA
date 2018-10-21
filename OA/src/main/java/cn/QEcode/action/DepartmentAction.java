@@ -37,11 +37,11 @@ public class DepartmentAction {
     
     private Department parent;
     
-    
     /**
      * @Description:列表页面
      * @return
      */
+    
     public String listUI(){
 	//查询顶级部门
 	if(parentId == null){
@@ -59,7 +59,9 @@ public class DepartmentAction {
      */
     public String addUI(){
 	department = new Department();
-	parent = departmentService.findById(parentId);
+	if(parentId!=null){
+	    parent = departmentService.findById(parentId);
+	}
 	return "addUI";
     }
     
@@ -68,6 +70,7 @@ public class DepartmentAction {
      * @return
      */
     public String add(){
+	parent = departmentService.findById(parentId);
 	department.setParent(parent);
 	departmentService.add(department);
 	return "list";
@@ -99,7 +102,10 @@ public class DepartmentAction {
      * @return
      */
     public String edit(){
-	//department.setParent(departmentService.findById(parentId));
+	if(department.getParent()!=null){
+	    department.setParent(departmentService.findById(department.getParent().getDepartmentId()));
+	    parentId = department.getParent().getDepartmentId();
+	}
 	departmentService.update(department);
 	return "list";
     }

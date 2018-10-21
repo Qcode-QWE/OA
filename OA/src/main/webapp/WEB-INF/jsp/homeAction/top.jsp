@@ -22,7 +22,7 @@
 		<div id="Logo">
         	<iframe name="autoRefashion" src="" width="0" height="0"></iframe>
 			<a id="msgLink" href="javascript:void(0)"></a>
-            <font color="#0000CC" style="color:#F1F9FE; font-size:28px; font-family:Arial Black, Arial">Itcast OA</font> 
+            <font color="#0000CC" style="color:#F1F9FE; font-size:28px; font-family:Arial Black, Arial">QEcode OA</font> 
 			<!--<img border="0" src="css/blue/images/logo.png" />-->
         </div>
 		<div id="Head1Right">
@@ -37,7 +37,7 @@
 				</div>
 		</div>
         <div id="Head1Right_SystemButton">
-            <a href="${pageContext.request.contextPath}/userAction_logout.action" target="_parent">
+            <a href="${pageContext.request.contextPath}/user/userAction_logout.action" target="_parent">
                 <img width="78" height="20" alt="退出系统" src="${pageContext.request.contextPath}/style/blue/images/top/logout.gif" />
             </a>
         </div>

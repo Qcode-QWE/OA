@@ -22,7 +22,7 @@
 <!--显示表单内容-->
 <div id=MainArea>
 <s:debug></s:debug>
-    <s:form action="userAction_add">
+    <s:form action="userAction_add.action">
     	<s:hidden name="UserId"></s:hidden>
     
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">

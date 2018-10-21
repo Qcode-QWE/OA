@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +39,11 @@ public class Role {
     
     @ManyToMany(mappedBy="roles")
     private Set<User> users = new HashSet<User>();
+    
+    @ManyToMany(targetEntity=Privilege.class,fetch=FetchType.EAGER)
+    @JoinColumn(name="privileges",referencedColumnName="privilege_id")
+    private Set<Privilege> privileges = new HashSet<Privilege>();
+    
     
     
     public String getName() {
@@ -77,6 +83,12 @@ public class Role {
     public Role(Long roleId, String name) {
 	this.roleId = roleId;
 	this.name = name;
+    }
+    public Set<Privilege> getPrivileges() {
+        return privileges;
+    }
+    public void setPrivileges(Set<Privilege> privileges) {
+        this.privileges = privileges;
     }
     
     

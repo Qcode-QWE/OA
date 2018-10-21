@@ -72,7 +72,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * @return
      */
     public T findById(long id){
+
 	return hibernateTemplate.get(clazz , id);
+
     }
     
     /**

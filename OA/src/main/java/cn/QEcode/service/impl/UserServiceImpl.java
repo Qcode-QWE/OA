@@ -71,4 +71,15 @@ public class UserServiceImpl implements UserService {
 	userDao.initPassword(user);
     }
 
+    /**
+     * @Description:登陆
+     * @param loginName
+     * @param password
+     * @return
+     */
+    @Override
+    public User findByLoginNameAndPassword(String loginName, String password) {
+	return userDao.findByLoginNameAndPassword(loginName,password);
+    }
+
 }

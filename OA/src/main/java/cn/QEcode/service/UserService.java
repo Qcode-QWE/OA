@@ -43,4 +43,12 @@ public interface UserService {
      */
     public void initPassword(User user);
 
+    /**
+     * @Description:登陆
+     * @param loginName
+     * @param password
+     * @return
+     */
+    public User findByLoginNameAndPassword(String loginName, String password);
+
 }

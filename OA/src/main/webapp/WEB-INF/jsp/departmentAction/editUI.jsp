@@ -26,7 +26,7 @@
 <div id=MainArea>
 
     <s:form action="departmentAction_edit">
-    	<s:hidden name="id"></s:hidden>
+    	<s:hidden name="department.departmentId"></s:hidden>
         
         <div class="ItemBlock_Title1"><!-- 信息说明<DIV CLASS="ItemBlock_Title1">
         	<IMG BORDER="0" WIDTH="4" HEIGHT="7" SRC="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 部门信息 </DIV>  -->
@@ -38,7 +38,7 @@
                 <table cellpadding="0" cellspacing="0" class="mainForm">
                     <tr><td width="100">上级部门</td>
                         <td>
-                        	<s:select name="parentId" cssClass="SelectStyle"
+                        	<s:select name="department.parent.departmentId" cssClass="SelectStyle"
                         		list="%{departments}" listKey="departmentId" listValue="name"
                         		headerKey="" headerValue="请选择部门"
                         	/>
