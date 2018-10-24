@@ -19,6 +19,8 @@ public class Page {
     private int prePageNum;//上一页
     private int nextPageNum;//下一页
     private List records;//每页的记录集
+    private int beginPageIndex; // 页码列表的开始索引（包含）
+    private int endPageIndex; // 页码列表的结束索引（包含）
     
     /*
      * 一定要提供当前页数和总记录数
@@ -30,6 +32,30 @@ public class Page {
 	startIndex = (currentNum - 1) * pageSize;
 	//计算总页数
 	totalPageNum = totalRecords%pageSize==0? totalRecords/pageSize : totalRecords/pageSize+1;
+	
+	//计算页码,当总页数小于等于10,全部显示
+	if(totalRecords <= 10){
+	    beginPageIndex = 1;
+	    endPageIndex = totalPageNum;
+	}else{
+	    //当总页数大于10,显示当前页附件页数
+	    beginPageIndex = currentNum - 4;
+	    endPageIndex = currentNum + 5;
+	    //如果currentNum小于4,则显示前10页
+	    if(beginPageIndex < 1){
+		beginPageIndex = 1;
+		endPageIndex = 10;
+	    }else if(endPageIndex > totalPageNum){
+		//如果后面不足5页,显示后10页
+		endPageIndex = totalPageNum;
+		beginPageIndex = totalPageNum - 9;
+		
+	    }
+	
+	}
+	
+	
+	
     }
 
     //上一页
@@ -104,6 +130,22 @@ public class Page {
 
     public void setNextPageNum(int nextPageNum) {
         this.nextPageNum = nextPageNum;
+    }
+
+    public int getBeginPageIndex() {
+        return beginPageIndex;
+    }
+
+    public void setBeginPageIndex(int beginPageIndex) {
+        this.beginPageIndex = beginPageIndex;
+    }
+
+    public int getEndPageIndex() {
+        return endPageIndex;
+    }
+
+    public void setEndPageIndex(int endPageIndex) {
+        this.endPageIndex = endPageIndex;
     }
     
     

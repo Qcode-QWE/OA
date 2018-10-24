@@ -2,6 +2,8 @@ package cn.QEcode.base;
 
 import java.util.List;
 
+import cn.QEcode.domain.Page;
+
 /**  
 * <p>Title: BaseDao.java</p>  
 * <p>Description:抽取dao基本功能的接口 </p>   
@@ -51,4 +53,12 @@ public interface BaseDao<T> {
      */
     public List<T> findAll();
     
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param hql
+     * @param patameters
+     * @return
+     */
+    public Page getPage(int pageNum,String hql,Object[] patameters);
 }

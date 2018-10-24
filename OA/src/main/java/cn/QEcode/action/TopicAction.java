@@ -9,6 +9,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Reply;
 import cn.QEcode.domain.Topic;
 import cn.QEcode.domain.User;
@@ -41,11 +42,14 @@ public class TopicAction  extends ActionSupport{
     private Forum forum;
     private List<Reply> replies;
     private int type;
-    
+    private int pageNum = 1;
+    private Page page;
     
     public String show(){
 	topic = topicService.findById(topic.getTopicId());
-	replies = replyService.findByTopic(topic);
+	//replies = replyService.findByTopic(topic);
+	page = replyService.getPage(pageNum,topic);
+	
 	return "show";
     }
     
@@ -116,6 +120,24 @@ public class TopicAction  extends ActionSupport{
     public void setType(int type) {
         this.type = type;
     }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
+
     
     
     

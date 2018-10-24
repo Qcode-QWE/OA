@@ -38,7 +38,7 @@
 	<!-- <center> -->
 		<div class="ItemBlock_Title1" style="width: 98%;">
 			<font class="MenuPoint"> &gt; </font>
-			<s:a action="forumAction_list">论坛</s:a>
+			<s:a action="forumAction_listUI">论坛</s:a>
 			<font class="MenuPoint"> &gt; </font>
 			${forum.name}
 			<span style="margin-left:30px;">
@@ -75,12 +75,12 @@
 				<!--主题列表-->
 				<tbody class="dataContainer" datakey="topicList">
 				
-				<s:iterator value="%{topics}">
+				<s:iterator value="%{page.records}">
 					<tr height="35" id="d0" class="template">
 						<td></td>
 						<td class="ForumTopicPageDataLine" align="center"><img src="${pageContext.request.contextPath}/style/images/topicType_${type}.gif" /></td>
 						<td class="Topic">
-							<a cssClass="Default" href="${pageContext.request.contextPath}/topic/topicAction_show.action?topic.topicId=${topicId}">${title}</a>
+							<a cssClass="Default" href="${pageContext.request.contextPath}/topic/topicAction_show.action?topic.topicId=${topicId}&pageNum=1">${title}</a>
 						</td>
 						<td class="ForumTopicPageDataLine">
 							<ul class="ForumPageTopicUl">
@@ -139,7 +139,7 @@
 </s:form>
 
 <!--分页信息-->
-<%-- <%@ include file="/WEB-INF/jsp/public/pageView.jspf" %> --%>
+<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
 <script type="text/javascript">
 	function gotoPage( pageNum ){
 		window.location.href = "forumAction_show.action?id=${id}&pageNum=" + pageNum;

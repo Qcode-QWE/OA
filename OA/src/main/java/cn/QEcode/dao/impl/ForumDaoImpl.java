@@ -46,7 +46,6 @@ public class ForumDaoImpl extends BaseDaoImpl<Forum> implements ForumDao {
 	Forum forum = findById(id);
 	Forum other = (Forum) hibernateTemplate.execute(
 		new HibernateCallback<Forum>() {
-
 		    @Override
 		    public Forum doInHibernate(Session session)
 			    throws HibernateException {

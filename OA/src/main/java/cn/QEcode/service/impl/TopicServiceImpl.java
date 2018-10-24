@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.QEcode.dao.TopicDao;
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Topic;
 import cn.QEcode.service.ForumService;
 import cn.QEcode.service.TopicService;
@@ -37,7 +38,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     public void delete(Long id) {
-	
+	topicDao.delete(id);
     }
 
     /**
@@ -68,7 +69,6 @@ public class TopicServiceImpl implements TopicService {
 
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     public void update(Topic entity) {
-	// TODO 自动生成的方法存根
 	
     }
 
@@ -86,6 +86,19 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> findByForum(Forum forum) {
 	return topicDao.findByForum(forum);
+    }
+
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param forum
+     * @return
+     */
+    @Override
+    public Page getPage(int pageNum, Forum forum) {
+	String hql =  "from Topic where forum = ?  order by (case type when 2 then 2 else 0 end ) desc,last_update_time desc ";
+	
+	return topicDao.getPage(pageNum, hql, new Object[] {forum});
     }
 
 }

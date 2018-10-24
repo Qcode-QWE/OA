@@ -9,9 +9,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 import cn.QEcode.base.BaseDao;
+import cn.QEcode.domain.Page;
+import cn.QEcode.domain.Topic;
 import cn.QEcode.domain.User;
 
 
@@ -101,6 +107,35 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      */
     public List<T> findAll(){
 	return (List<T>) hibernateTemplate.find("from "+clazz.getSimpleName());
+    }
+    
+    public Page getPage(int pageNum,String hql,Object[] patameters){
+	
+	//获取总页数
+	Long pagesum = (Long) hibernateTemplate.find(
+		"select count(*) from "+clazz.getSimpleName()).get(0);
+	int sum = pagesum.intValue();
+	// 构造page
+	Page page = new Page(pageNum, sum);
+	List<Topic> topics = (List<Topic>) hibernateTemplate
+		.execute(new HibernateCallback<List<Topic>>() {
+		    public List<Topic> doInHibernate(Session session)
+			    throws HibernateException {
+			Query query = session.createQuery(hql);
+			if(patameters!=null && patameters.length > 0){
+			    for(int i = 0;i<patameters.length;i++){
+				query.setParameter(i, patameters[i]);
+			    }
+			}
+			query.setFirstResult(page.getStartIndex());
+			query.setMaxResults(page.getPageSize());
+			return query.list();
+		    }
+		});
+	page.setRecords(topics);
+
+	return page;
+	
     }
     
 }

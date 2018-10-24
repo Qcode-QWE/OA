@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/fckeditor/fckeditor.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			var oFCKeditor = new FCKeditor( 'content' ) ; // 提交表单时本字段使用的参数名
+			var oFCKeditor = new FCKeditor( 'reply.content' ) ; // 提交表单时本字段使用的参数名
 			oFCKeditor.BasePath	= "${pageContext.request.contextPath}/fckeditor/" ; // 必须要有，这是指定editor文件夹所在的路径，一定要以'/'结尾
 			oFCKeditor.Height	= "95%" ;
 			oFCKeditor.Width	= "95%" ;
@@ -84,7 +84,7 @@
 						<td class="InputAreaBg"><div class="InputTitle">内容</div></td>
 						<td class="InputAreaBg">
 							<div class="InputContent">
-								<s:textarea name="reply.content" cssStyle="width:650px;height:200px;"></s:textarea>
+								<s:textarea  name="reply.content" cssStyle="width:650px;height:200px;"></s:textarea>
 							</div>
 						</td>
 					</tr>

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Topic;
 import cn.QEcode.service.ForumService;
 import cn.QEcode.service.TopicService;
@@ -32,13 +33,13 @@ public class ForumAction extends ActionSupport {
     private Forum forum;
     private List<Forum> forums;
     private List<Topic> topics;
-    
+    private int pageNum = 1;
+    private Page page;
     /**
      * @Description:列表页面
      * @return
      */
     public String listUI(){
-	
 	forums = forumService.findAll();
 	return "listUI";
     }
@@ -49,7 +50,9 @@ public class ForumAction extends ActionSupport {
      */
     public String show(){
 	forum = forumService.findById(forum.getForumId());
-	topics =  topicService.findByForum(forum);
+	//topics =  topicService.findByForum(forum);
+	//分页列表
+	page = topicService.getPage(pageNum,forum);
 	
 	return "show";
     }
@@ -78,6 +81,22 @@ public class ForumAction extends ActionSupport {
 
     public void setTopics(List<Topic> topics) {
         this.topics = topics;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
     
     

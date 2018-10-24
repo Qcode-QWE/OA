@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.QEcode.dao.ReplyDao;
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Reply;
 import cn.QEcode.domain.Topic;
 import cn.QEcode.service.ForumService;
@@ -93,6 +94,18 @@ public class ReplyServiceImpl implements ReplyService {
      */
     public List<Reply> findByTopic(Topic topic){
 	return replyDao.findByTopic(topic);
+    }
+
+    /**
+     * @Description:分页查询回帖
+     * @param pageNum
+     * @param topic
+     * @return
+     */
+    @Override
+    public Page getPage(int pageNum, Topic topic) {
+	String hql  = "from Reply where topic = ? order by postTime";
+	return replyDao.getPage(pageNum,hql,new Object[] {topic});
     }
     
     

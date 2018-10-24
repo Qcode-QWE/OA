@@ -42,7 +42,7 @@
 						<td class="ForumPageTableDataLine">
 							<ul class="ForumPageTopicUl">
 								<li class="ForumPageTopic">
-									<s:a action="forumAction_show?forum.forumId=%{forumId}" cssClass="ForumPageTopic">${name}</s:a>
+									<s:a action="forumAction_show?forum.forumId=%{forumId}&pageNum=1" cssClass="ForumPageTopic">${name}</s:a>
 								</li>
 								<li class="ForumPageTopicMemo">${description}</li>
 							</ul>

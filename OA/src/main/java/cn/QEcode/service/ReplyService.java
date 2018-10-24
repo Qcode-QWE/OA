@@ -3,6 +3,7 @@ package cn.QEcode.service;
 import java.util.List;
 
 import cn.QEcode.base.BaseService;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Reply;
 import cn.QEcode.domain.Topic;
 
@@ -21,6 +22,14 @@ public interface ReplyService extends BaseService<Reply> {
      * @return
      */
     public List<Reply> findByTopic(Topic topic);
+
+    /**
+     * @Description:分页查询回帖
+     * @param pageNum
+     * @param topic
+     * @return
+     */
+    public Page getPage(int pageNum, Topic topic);
     
     
 }

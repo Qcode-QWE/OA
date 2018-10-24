@@ -2,11 +2,17 @@ package cn.QEcode.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import cn.QEcode.base.impl.BaseDaoImpl;
 import cn.QEcode.dao.TopicDao;
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
+import cn.QEcode.domain.Reply;
 import cn.QEcode.domain.Topic;
 
 /**  
@@ -30,5 +36,5 @@ public class TopicDaoImpl extends BaseDaoImpl<Topic> implements TopicDao {
 	return (List<Topic>) hibernateTemplate.find(
 		"from Topic where forum = ?  order by (case type when 2 then 2 else 0 end ) desc,last_update_time desc ",forum);
     }
-
+    
 }

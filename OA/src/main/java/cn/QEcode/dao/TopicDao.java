@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.QEcode.base.BaseDao;
 import cn.QEcode.domain.Forum;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Topic;
 
 public interface TopicDao extends BaseDao<Topic>{
@@ -14,5 +15,6 @@ public interface TopicDao extends BaseDao<Topic>{
      * @return
      */
     List<Topic> findByForum(Forum forum);
+
 
 }

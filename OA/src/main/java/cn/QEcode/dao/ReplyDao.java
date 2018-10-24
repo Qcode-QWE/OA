@@ -3,6 +3,7 @@ package cn.QEcode.dao;
 import java.util.List;
 
 import cn.QEcode.base.BaseDao;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Reply;
 import cn.QEcode.domain.Topic;
 
@@ -14,5 +15,6 @@ public interface ReplyDao extends BaseDao<Reply> {
      * @return
      */
     List<Reply> findByTopic(Topic topic);
+
 
 }

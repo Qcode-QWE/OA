@@ -24,9 +24,9 @@
 	<!-- <center> -->
 		<div class="ItemBlock_Title1" style="width: 98%">
 			<font class="MenuPoint"> &gt; </font>
-			<s:a action="forumAction_list">论坛</s:a>
+			<a href="${pageContext.request.contextPath}/forum/forumAction_listUI.action">论坛</a>
 			<font class="MenuPoint"> &gt; </font>
-			<s:a action="forumAction_show?forum.forumId=%{topic.forum.forumId}">${topic.forum.name}</s:a>
+			<a href="${pageContext.request.contextPath}/forum/forumAction_show.action?forum.forumId=${topic.forum.forumId}">${topic.forum.name}</a>
 			<font class="MenuPoint"> &gt;&gt; </font>
 			帖子阅读
 			<span style="margin-left:30px;">
@@ -59,7 +59,7 @@
 			</table>
 
 			<!-- ~~~~~~~~~~~~~~~ 显示主帖（主帖只在第1页显示） ~~~~~~~~~~~~~~~ -->
-			<s:if test="currentPage == 1">
+			<s:if test="page.currentNum == 1">
 			<div class="ListArea">
 				<table border="0" cellpadding="0" cellspacing="1" width="100%">
 					<tr>
@@ -111,7 +111,7 @@
 
 
 			<!-- ~~~~~~~~~~~~~~~ 显示回复列表 ~~~~~~~~~~~~~~~ -->
-			<s:iterator value="%{replies}" status="status"> 
+			<s:iterator value="%{page.records}" status="status"> 
 			<div class="ListArea template">
 				<table border="0" cellpadding="0" cellspacing="1" width="100%">
 					<tr>
@@ -147,7 +147,7 @@
 					<tr><!--显示楼层等信息-->
 						<td class="Footer" height="28" align="center" valign="bottom">
 							<ul style="margin: 0px; width: 98%;">
-								<li style="float: left; line-height:18px;"><font color=#C30000>[${(currentPage - 1) * pageSize + status.count}楼]</font>
+								<li style="float: left; line-height:18px;"><font color=#C30000>[${(page.currentNum - 1) * page.pageSize + status.count}楼]</font>
 									<s:date name="%{postTime}" format="yyyy-MM-dd HH:mm:ss"/>
 								</li>
 								<li style="float: right;"><a href="javascript:scroll(0,0)">
@@ -163,10 +163,10 @@
 		</div>
 
 		<!--分页信息-->
-		<%-- <%@ include file="/WEB-INF/jsp/public/pageView.jspf" %> --%>
+		<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
 		<script type="text/javascript">
 			function gotoPage( pageNum ){
-				window.location.href = "topicAction_show.action?id=${id}&pageNum=" + pageNum;
+				window.location.href = "topicAction_show.action?topic.topicId=${topic.topicId}&pageNum=" + pageNum;
 			}
 		</script>
 		
