@@ -10,6 +10,13 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 
+/**  
+* <p>Title: CheckPrivilegeInterceptor.java</p>  
+* <p>Description:检查用户是否登陆以及用户的权限 </p>   
+* @author Qcode  
+* @date 2018年10月23日  
+* @version 1.0  
+*/ 
 public class CheckPrivilegeInterceptor extends AbstractInterceptor{
 
     @Override

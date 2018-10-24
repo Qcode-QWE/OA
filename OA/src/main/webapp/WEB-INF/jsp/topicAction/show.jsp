@@ -21,16 +21,16 @@
 <!--内容显示-->	
 <div id="MainArea">
 	<div id="PageHead"></div>
-	<center>
+	<!-- <center> -->
 		<div class="ItemBlock_Title1" style="width: 98%">
 			<font class="MenuPoint"> &gt; </font>
 			<s:a action="forumAction_list">论坛</s:a>
 			<font class="MenuPoint"> &gt; </font>
-			<s:a action="forumAction_show?id=%{#topic.forum.id}">${topic.forum.name}</s:a>
+			<s:a action="forumAction_show?forum.forumId=%{topic.forum.forumId}">${topic.forum.name}</s:a>
 			<font class="MenuPoint"> &gt;&gt; </font>
 			帖子阅读
 			<span style="margin-left:30px;">
-				<s:a action="topicAction_addUI?forumId=%{#topic.forum.id}">
+				<s:a action="topicAction_addUI?forum.forumId=%{topic.forum.forumId}">
 					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
 				</s:a>
 			</span>
@@ -44,14 +44,14 @@
 				<td width="3" class="ForumPageTableTitleLeft">&nbsp;</td>
 					<td class="ForumPageTableTitle"><b>本帖主题：${topic.title}</b></td>
 					<td class="ForumPageTableTitle" align="right" style="padding-right:12px;">
-						<s:a cssClass="detail" action="replyAction_addUI?topicId=%{#topic.id}">
+						<a cssClass="detail" href="${pageContext.request.contextPath}/reply/replyAction_addUI.action?topic.topicId=${topic.topicId}">
 							<img border="0" src="${pageContext.request.contextPath}/style/images/reply.gif" />
 							回复
-						</s:a>
+						</a>
 						<a href="moveUI.html"><img border="0" src="${pageContext.request.contextPath}/style/images/edit.gif" />移动到其他版块</a>
-						<a href="#" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
-						<a href="#" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
-						<a href="#" onClick="return confirm('要把本主题设为普通吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_0.gif" />普通</a>
+						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=2&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
+						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=1&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
+						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=0&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为普通吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_0.gif" />普通</a>
 					</td>
 					<td width="3" class="ForumPageTableTitleRight">&nbsp;</td>
 				</tr>
@@ -96,7 +96,7 @@
 						<td class="Footer" height="28" align="center" valign="bottom">
 							<ul style="margin: 0px; width: 98%;">
 								<li style="float: left; line-height:18px;"><font color=#C30000>[楼主]</font>
-									<s:date name="%{#topic.postTime}" format="yyyy-MM-dd HH:mm:ss"/>
+									<s:date name="%{topic.postTime}" format="yyyy-MM-dd HH:mm:ss"/>
 								</li>
 								<li style="float: right;"><a href="javascript:scroll(0,0)">
 									<img border="0" src="${pageContext.request.contextPath}/style/images/top.gif" /></a>
@@ -111,7 +111,7 @@
 
 
 			<!-- ~~~~~~~~~~~~~~~ 显示回复列表 ~~~~~~~~~~~~~~~ -->
-			<s:iterator value="recordList" status="status"> 
+			<s:iterator value="%{replies}" status="status"> 
 			<div class="ListArea template">
 				<table border="0" cellpadding="0" cellspacing="1" width="100%">
 					<tr>
@@ -163,7 +163,7 @@
 		</div>
 
 		<!--分页信息-->
-		<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
+		<%-- <%@ include file="/WEB-INF/jsp/public/pageView.jspf" %> --%>
 		<script type="text/javascript">
 			function gotoPage( pageNum ){
 				window.location.href = "topicAction_show.action?id=${id}&pageNum=" + pageNum;
@@ -183,17 +183,18 @@
 				</tr>
 			</table>
 		</div>
-	</center>
+	<!-- </center> -->
 			
 	<!--快速回复-->
 	<div class="QuictReply">
-	<form action="">
+	<form action="${pageContext.request.contextPath}/reply/replyAction_add.action" >
+		<s:hidden name="topic.topicId"></s:hidden>
 		<div style="padding-left: 3px;">
 			<table border="0" cellspacing="1" width="98%" cellpadding="5" class="TableStyle">
 				<tr height="30" class="Tint">
 					<td width="50px" class="Deep"><b>标题</b></td>
 					<td class="no_color_bg">
-						<input type="text" name="title" class="InputStyle" value="回复：昨天发现在表单里删除的图片" style="width:90%"/>
+						<input type="text" name="reply.title" class="InputStyle" value="" style="width:90%"/>
 					</td>
 				</tr>
 				<tr height="30" class="Tint">
@@ -204,71 +205,19 @@
 							但在给单独的图片加label时无法成功。
 							解决方法是：给图片img标签加上disabled即可。-->
 						<table cellpadding="0" border="0" cellspacing="0">
-							<tr>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="1" id="r_1"/>
-									<label for="r_1"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/1.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="2" id="r_2"/>
-									<label for="r_2"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/2.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="3" id="r_3"/>
-									<label for="r_3"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/3.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="4" id="r_4"/>
-									<label for="r_4"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/4.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="5" id="r_5"/>
-									<label for="r_5"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/5.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="6" id="r_6"/>
-									<label for="r_6"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/6.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="7" id="r_7"/>
-									<label for="r_7"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/7.gif" disabled="true" align="absmiddle"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="8" id="r_8"/>
-									<label for="r_8"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/8.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="9" id="r_9"/>
-									<label for="r_9"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/9.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="10" id="r_10"/>
-									<label for="r_10"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/10.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="11" id="r_11"/>
-									<label for="r_11"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/11.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="12" id="r_12"/>
-									<label for="r_12"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/12.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="13" id="r_13"/>
-									<label for="r_13"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/13.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-								<td width="50" style="border-bottom:0 solid #ffffff">
-									<input type="radio" name="faceIcon" value="14" id="r_14"/>
-									<label for="r_14"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/14.gif" align="absmiddle" disabled="true"/></label>
-								</td>
-							</tr>
+							<s:iterator begin="1" end="14" var="num">
+									<td width="50" style="border-bottom:0 solid #ffffff">
+										<input type="radio" name="reply.faceIcon" value="${num}" id="r_${num}"/>
+										<label for="r_${num}"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/${num}.gif" disabled="true" align="absmiddle"/></label>
+									</td>
+								</s:iterator>
 						</table></div>
 					</td>
 				</tr>
 				<tr class="Tint" height="200">
 					<td valign="top" rowspan="2" class="Deep"><b>内容</b></td>
 					<td valign="top" class="no_color_bg">
-						<textarea name="content" style="width: 95%; height: 300px"></textarea>
+						<textarea name="reply.content" style="width: 95%; height: 300px"></textarea>
 					</td>
 				</tr>
 				<tr height="30" class="Tint">

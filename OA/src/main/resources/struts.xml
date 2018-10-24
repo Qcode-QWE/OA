@@ -61,4 +61,43 @@
 			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
 		</action>
 	</package>
+	
+	
+	<!-- 论坛板块管理Action -->
+	<package name="forumManageAction" extends="default" namespace="/forumManage">
+		<action name="forumManageAction_*" class="forumManageAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/forumManageAction/{1}.jsp</result>
+			<result name="list" type="redirect">forumManageAction_listUI.action</result>
+		</action>
+	</package>
+	
+	<!-- 论坛板块Action -->
+	<package name="forumAction" extends="default" namespace="/forum">
+		<action name="forumAction_*" class="forumAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/forumAction/{1}.jsp</result>
+			<result name="list" type="redirect">forumAction_listUI.action</result>
+		</action>
+	</package>
+	
+	<!-- 论坛主题Action -->
+	<package name="topicAction" extends="default" namespace="/topic">
+		<action name="topicAction_*" class="topicAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/topicAction/{1}.jsp</result>
+			<result name="toShow" type="redirect">topicAction_show.action?topic.topicId=${topic.topicId}</result>
+		</action>
+	</package>
+	
+	
+	<!-- 论坛回帖Action -->
+	<package name="replyAction" extends="default" namespace="/reply">
+		<action name="replyAction_*" class="replyAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/replyAction/{1}.jsp</result>
+			<result name="toShow" type="redirectAction">
+				  <param name="actionName">topicAction_show.action</param>
+                <param name="namespace">/topic</param>
+			</result>
+		</action>
+	</package>
+	
+	
 </struts>

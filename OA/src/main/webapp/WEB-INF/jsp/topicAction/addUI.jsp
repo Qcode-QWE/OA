@@ -4,18 +4,6 @@
 	<title>发表新主题</title>
     <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/forum.css" />
-	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/fckeditor/fckeditor.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			var oFCKeditor = new FCKeditor( 'content' ) ; // 提交表单时本字段使用的参数名
-			oFCKeditor.BasePath	= "${pageContext.request.contextPath}/fckeditor/" ; // 必须要有，这是指定editor文件夹所在的路径，一定要以'/'结尾
-			oFCKeditor.Height	= "95%" ;
-			oFCKeditor.Width	= "95%" ;
-			oFCKeditor.ToolbarSet = "bbs" ;
-			oFCKeditor.ReplaceTextarea(); // 替换id或name为指定值的textarea
-		});
-	</script>
 </head>
 <body>
 
@@ -34,7 +22,7 @@
 <div id="MainArea">
 
 	<s:form action="topicAction_add" cssStyle="margin: 0; padding: 0;">
-		<s:hidden name="forumId"></s:hidden>
+		<s:hidden name="forum.forumId"></s:hidden>
 		
 		<div id="PageHead"></div>
 		<center>
@@ -43,7 +31,7 @@
 					<font class="MenuPoint"> &gt; </font>
 					<s:a action="forumAction_list">论坛</s:a>
 					<font class="MenuPoint"> &gt; </font>
-					<s:a action="forumAction_show?id=%{#forum.id}">${forum.name}</s:a>
+					<s:a action="forumAction_show?id=%{forum.id}">${forum.name}</s:a>
 					<font class="MenuPoint"> &gt;&gt; </font>
 					发表新主题
 				</div>
@@ -53,7 +41,7 @@
 					<tr>
 						<td class="InputAreaBg" height="30"><div class="InputTitle">标题</div></td>
 						<td class="InputAreaBg"><div class="InputContent">
-							<s:textfield name="title" cssClass="InputStyle" cssStyle="width:100%"/></div>
+							<s:textfield name="topic.title" cssClass="InputStyle" cssStyle="width:100%"/></div>
 						</td>
 					</tr>
 					<tr>
@@ -67,7 +55,7 @@
 								<tr>
 								<s:iterator begin="1" end="14" var="num">
 									<td width="50" style="border-bottom:0 solid #ffffff">
-										<input type="radio" name="faceIcon" value="${num}" id="r_${num}"/>
+										<input type="radio" name="topic.faceIcon" value="${num}" id="r_${num}"/>
 										<label for="r_${num}"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/${num}.gif" disabled="true" align="absmiddle"/></label>
 									</td>
 								</s:iterator>
@@ -79,7 +67,7 @@
 						<td class="InputAreaBg"><div class="InputTitle">内容</div></td>
 						<td class="InputAreaBg">
 							<div class="InputContent">
-								<s:textarea name="content" cssStyle="width:650px;height:200px"></s:textarea>
+								<s:textarea name="topic.content" cssStyle="width:650px;height:200px"></s:textarea>
 							</div>
 						</td>
 						

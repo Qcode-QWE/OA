@@ -32,19 +32,24 @@
     </div>
 </div>
 
-<s:form action="forumAction_show?id=%{id}">
+<s:form action="forumAction_show?form.forumId=%{form.forumId}">
 <div id="MainArea">
 	<div id="PageHead"></div>
-	<center>
+	<!-- <center> -->
 		<div class="ItemBlock_Title1" style="width: 98%;">
 			<font class="MenuPoint"> &gt; </font>
 			<s:a action="forumAction_list">论坛</s:a>
 			<font class="MenuPoint"> &gt; </font>
 			${forum.name}
 			<span style="margin-left:30px;">
-				<s:a action="topicAction_addUI?forumId=%{#forum.id}">
+				<%-- <a href="${pageContext.request.contextPath}/topic/topicAction_addUI?forum.forumId=${forum.forumId}">
 					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
-				</s:a>
+				</a> --%>
+				
+				<a href="${pageContext.request.contextPath}/topic/topicAction_addUI.action?forum.forumId=${forum.forumId}">
+					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
+				</a>
+				
 			</span>
 		</div>
 		
@@ -70,12 +75,12 @@
 				<!--主题列表-->
 				<tbody class="dataContainer" datakey="topicList">
 				
-				<s:iterator value="recordList">
+				<s:iterator value="%{topics}">
 					<tr height="35" id="d0" class="template">
 						<td></td>
 						<td class="ForumTopicPageDataLine" align="center"><img src="${pageContext.request.contextPath}/style/images/topicType_${type}.gif" /></td>
 						<td class="Topic">
-							<s:a cssClass="Default" action="topicAction_show?id=%{id}">${title}</s:a>
+							<a cssClass="Default" href="${pageContext.request.contextPath}/topic/topicAction_show.action?topic.topicId=${topicId}">${title}</a>
 						</td>
 						<td class="ForumTopicPageDataLine">
 							<ul class="ForumPageTopicUl">
@@ -86,7 +91,7 @@
 						<td class="ForumTopicPageDataLine Reply" align="center"><b>${replyCount}</b></td>
 						<td class="ForumTopicPageDataLine">
 							<ul class="ForumPageTopicUl">
-								<li class="Author">${lastReply.author.name}</li>
+								<li class="Author"><s:if test="%{lastReply!=null}">${lastReply.author.name}</s:if></li>
 								<li class="CreateTime"><s:date name="lastReply.postTime" format="yyyy-MM-dd HH:mm:ss"/></li>
 							</ul>
 						</td>
@@ -129,12 +134,12 @@
 			</div>
 			
 		</div>
-	</center>
+	<!-- </center> -->
 </div>
 </s:form>
 
 <!--分页信息-->
-<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
+<%-- <%@ include file="/WEB-INF/jsp/public/pageView.jspf" %> --%>
 <script type="text/javascript">
 	function gotoPage( pageNum ){
 		window.location.href = "forumAction_show.action?id=${id}&pageNum=" + pageNum;

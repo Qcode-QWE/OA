@@ -73,7 +73,7 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String addUI() {
-	System.out.println(user.getName());
+	
 	// 获取部门名称列表
 	departments = departmentService.getName();
 	// 获取职位名称列表
@@ -197,6 +197,7 @@ public class UserAction extends ActionSupport {
 	    }
 	}
 	addFieldError("login", "用户名或密码不正确");
+	
 	return "loginUI";
     }
 

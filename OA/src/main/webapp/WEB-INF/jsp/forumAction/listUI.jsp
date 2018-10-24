@@ -16,7 +16,7 @@
 	</div>
 </div>
 <div id="MainArea">
-	<center>
+	<!-- <center> -->
 		<div class="ForumPageTableBorder" style="margin-top: 25px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			
@@ -33,7 +33,7 @@
 				<!--版面列表-->
 				<tbody class="dataContainer" datakey="forumList">
 				
-				<s:iterator value="#forumList">
+				<s:iterator value="%{forums}">
 					<tr height="78" align="center" class="template">
 						<td width="3"></td>
 						<td width="75" class="ForumPageTableDataLine">
@@ -42,7 +42,7 @@
 						<td class="ForumPageTableDataLine">
 							<ul class="ForumPageTopicUl">
 								<li class="ForumPageTopic">
-									<s:a action="forumAction_show?id=%{id}" cssClass="ForumPageTopic">${name}</s:a>
+									<s:a action="forumAction_show?forum.forumId=%{forumId}" cssClass="ForumPageTopic">${name}</s:a>
 								</li>
 								<li class="ForumPageTopicMemo">${description}</li>
 							</ul>
@@ -68,7 +68,7 @@
 				<tr height="3"><td colspan="9"></td></tr>
 			</table>
 		</div>
-	</center>
+	<!-- </center> -->
 </div>
 </body>
 </html>

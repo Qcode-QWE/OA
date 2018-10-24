@@ -35,7 +35,7 @@
 <div id="MainArea">
 
 	<s:form action="replyAction_add" cssStyle="margin: 0; padding: 0;">
-		<s:hidden name="topicId"></s:hidden>
+		<s:hidden name="topic.topicId"></s:hidden>
 		
 		<div id="PageHead"></div>
 		<center>
@@ -44,7 +44,7 @@
 					<font class="MenuPoint"> &gt; </font>
 					<s:a action="forumAction_list">论坛</s:a>
 					<font class="MenuPoint"> &gt; </font>
-					<s:a action="forumAction_show?id=%{#topic.forum.id}">${topic.forum.name}</s:a>
+					<s:a action="forumAction_show?topic.topicId=%{#topic.forum.forumId}">${topic.forum.name}</s:a>
 					<font class="MenuPoint"> &gt;&gt; </font>
 					帖子回复
 				</div>
@@ -58,7 +58,7 @@
 					<tr>
 						<td class="InputAreaBg" height="30"><div class="InputTitle">标题</div></td>
 						<td class="InputAreaBg"><div class="InputContent">
-							<s:textfield name="title" cssClass="InputStyle" cssStyle="width:100%" value="回复：%{#topic.title}"/></div>
+							<s:textfield name="reply.title" cssClass="InputStyle" cssStyle="width:100%" value="回复：%{#topic.title}"/></div>
 						</td>
 					</tr>
 					<tr>
@@ -72,7 +72,7 @@
 								<tr>
 								<s:iterator begin="1" end="14" var="num">
 									<td width="50" style="border-bottom:0 solid #ffffff">
-										<input type="radio" name="faceIcon" value="${num}" id="r_${num}"/>
+										<input type="radio" name="reply.faceIcon" value="${num}" id="r_${num}"/>
 										<label for="r_${num}"><img width="19" height="19" src="${pageContext.request.contextPath}/style/images/face/${num}.gif" disabled="true" align="absmiddle"/></label>
 									</td>
 								</s:iterator>
@@ -84,7 +84,7 @@
 						<td class="InputAreaBg"><div class="InputTitle">内容</div></td>
 						<td class="InputAreaBg">
 							<div class="InputContent">
-								<s:textarea name="content" cssStyle="width:650px;height:200px;"></s:textarea>
+								<s:textarea name="reply.content" cssStyle="width:650px;height:200px;"></s:textarea>
 							</div>
 						</td>
 					</tr>

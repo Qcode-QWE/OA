@@ -43,12 +43,12 @@
                         </td>
                     </tr>
                     <tr><td>登录名</td>
-                        <td><s:textfield name="user.loginName" cssClass="InputStyle"/> *
+                        <td><s:textfield name="user.loginName" cssClass="InputStyle required"/> *
 							（登录名要唯一）
 						</td>
                     </tr>
                     <tr><td>姓名</td>
-                        <td><s:textfield name="user.name" cssClass="InputStyle"/> *</td>
+                        <td><s:textfield name="user.name" cssClass="InputStyle required"/> *</td>
                     </tr>
 					<tr><td>性别</td>
                         <td>
@@ -59,7 +59,7 @@
                         <td><s:textfield name="user.phone" cssClass="InputStyle"/></td>
                     </tr>
                     <tr><td>E-mail</td>
-                        <td><s:textfield name="user.email" cssClass="InputStyle"/></td>
+                        <td><s:textfield name="user.email" cssClass="InputStyle email"/></td>
                     </tr>
                     <%-- <tr><td>备注</td>
                         <td><s:textarea name="user.description" cssClass="TextareaStyle"></s:textarea></td>

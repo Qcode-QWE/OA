@@ -58,9 +58,11 @@ public class DepartmentAction {
      * @return
      */
     public String addUI(){
-	department = new Department();
 	if(parentId!=null){
 	    parent = departmentService.findById(parentId);
+	}else{
+	    parent = new Department();
+	    parent.setName("没有上级部门");
 	}
 	return "addUI";
     }
@@ -70,8 +72,10 @@ public class DepartmentAction {
      * @return
      */
     public String add(){
-	parent = departmentService.findById(parentId);
-	department.setParent(parent);
+	if(parentId!=null){
+	    parent = departmentService.findById(parentId);
+	    department.setParent(parent);
+	}
 	departmentService.add(department);
 	return "list";
     }

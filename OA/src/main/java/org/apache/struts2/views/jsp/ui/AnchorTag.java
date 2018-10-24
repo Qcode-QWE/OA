@@ -74,7 +74,7 @@ public class AnchorTag extends AbstractClosingTag {
     public int doEndTag() throws JspException {
         //如果是超级用户
 	User user = (User) ActionContext.getContext().getSession().get("user");
-	if(user.getName().equals("admin")){
+	if(user.getLoginName().equals("admin")){
 	    return super.doEndTag();
 	}
 	

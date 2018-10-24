@@ -64,7 +64,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @return
      */
     public String addUI(){
-	System.out.println(role);
+	
 	return "addUI";
     }
     

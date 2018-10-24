@@ -4,7 +4,6 @@
 	<title>导航菜单</title>
 	<%@ include file="/WEB-INF/jsp/public/common.jspf"%>
 	<link type="text/css" rel="stylesheet" href="style/blue/menu.css" />
-	
 	<script type="text/javascript">
 		function menuClick( menuDiv ){
 			// $(".MenuLevel2").not( $(menuDiv).next() ).hide();

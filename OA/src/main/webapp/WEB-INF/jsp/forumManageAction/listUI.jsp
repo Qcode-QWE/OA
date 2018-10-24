@@ -38,20 +38,20 @@
 		<!--显示数据列表-->
         <tbody id="TableData" class="dataContainer" datakey="forumList">
         
-        <s:iterator value="#forumList" status="status">
+        <s:iterator value="%{forums}" status="status">
 			<tr class="TableDetail1 template">
 				<td>${name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
 				<td>
-					<s:a action="forumManageAction_delete?id=%{id}" onclick="return delConfirm()">删除</s:a>
-					<s:a action="forumManageAction_editUI?id=%{id}">修改</s:a>
+					<s:a action="forumManageAction_delete?forum.forumId=%{forumId}" onclick="return delConfirm()">删除</s:a>
+					<s:a action="forumManageAction_editUI?forum.forumId=%{forumId}">修改</s:a>
 					
 					<!-- 最上面的不能用上移 -->
 					<s:if test="#status.first">
 						<span class="disabledA">上移</span>
 					</s:if>
 					<s:else>
-						<s:a action="forumManageAction_moveUp?id=%{id}">上移</s:a>
+						<s:a action="forumManageAction_moveUp?forum.forumId=%{forumId}">上移</s:a>
 					</s:else>
 					
 					<!-- 最下面的不能用下移 -->
@@ -59,7 +59,7 @@
 						<span class="disabledA">下移</span>
 					</s:if>
 					<s:else>
-						<s:a action="forumManageAction_moveDown?id=%{id}">下移</s:a>
+						<s:a action="forumManageAction_moveDown?forum.forumId=%{forumId}">下移</s:a>
 					</s:else>
 					
 				</td>

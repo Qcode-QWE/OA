@@ -85,6 +85,11 @@ public class User {
     }
     
     public boolean hasPrivilegeByUrl(String privilegeUrl){
+	//如果是超级管理员,拥有全部权限
+	if("admin".equals(loginName)){
+	    return true;
+	}
+	
 	String uu = privilegeUrl;
 	//获取XXX/XXX/XXAction_xxx中XXAction_xxx
 	//获取最后一个/的位置

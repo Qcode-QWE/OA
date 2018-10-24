@@ -1,7 +1,7 @@
 body {
 	background: #d8edfc;
 	font-size: 12px;
-	font-family: "ËÎÌå";
+	font-family: "ï¿½ï¿½ï¿½ï¿½";
 	scrollbar-base-color: #dbecf8;
 	scrollbar-arrow-color: #2a8ed1;
 	scrollbar-track-color: #bdddf2;
@@ -34,14 +34,14 @@ img.Icon {
 	list-style:none;
 	margin: 0px;
 	padding: 0px;
-	background: #d8ebf7;
+	background: #c6e0f8;
 }
 
 ul.MenuLevel2 {
 	list-style:none;
 	margin: 0px;
 	padding: 0px;
-	background: #d8ebf7;
+	background: #88c0e8;
 }
 
 #Menu {
@@ -103,6 +103,7 @@ ul.MenuLevel2 {
 	padding-left: 20px;
 	padding-top: 4px;
 	cursor: hand;
+	background-color: #c6e0f8
 }
 
 .level1SelectedStyle {
@@ -122,5 +123,6 @@ ul.MenuLevel2 {
 	padding-top: 4px;
 	border-top: 1px solid #eff6fb;
 	cursor: hand;
+	background-color: #88c0e8
 }
 
