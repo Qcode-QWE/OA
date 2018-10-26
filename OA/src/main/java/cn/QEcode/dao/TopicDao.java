@@ -2,6 +2,8 @@ package cn.QEcode.dao;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import cn.QEcode.base.BaseDao;
 import cn.QEcode.domain.Forum;
 import cn.QEcode.domain.Page;
@@ -15,6 +17,9 @@ public interface TopicDao extends BaseDao<Topic>{
      * @return
      */
     List<Topic> findByForum(Forum forum);
+
+
+
 
 
 }

@@ -31,8 +31,11 @@ public class Page {
 	//获取索引
 	startIndex = (currentNum - 1) * pageSize;
 	//计算总页数
-	totalPageNum = totalRecords%pageSize==0? totalRecords/pageSize : totalRecords/pageSize+1;
-	
+	if(totalRecords==0){
+	    totalPageNum = 1;
+	}else{
+	    totalPageNum = totalRecords%pageSize==0? totalRecords/pageSize : (totalRecords/pageSize)+1;
+	}
 	//计算页码,当总页数小于等于10,全部显示
 	if(totalRecords <= 10){
 	    beginPageIndex = 1;

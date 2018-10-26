@@ -112,19 +112,20 @@
 					<table border="0" cellspacing="0" cellpadding="0" height="100%" align="left">
 						<tr valign=bottom>
 							<td></td>
-							<td><select name="viewType">
-									<option value="0">全部主题</option>
-									<option value="1">全部精华贴</option>
+							<td>							
+								<select name="viewType">
+									<option value="0" ${viewType==0?'selected':''}>全部主题</option>
+									<option value="1" ${viewType==1?'selected':''}>全部精华贴</option>
 								</select>
 								<select name="orderBy" onchange="onSortByChange(this.value)">
-									<option value="0">默认排序(所有置顶帖在前面，并按最后更新时间降序排列)</option>
-									<option value="1">只按最后更新时间排序</option>
-									<option value="2">只按主题发表时间排序</option>
-									<option value="3">只按回复数量排序</option>
+									<option value="0" ${orderBy==0?'selected':''}>默认排序(所有置顶帖在前面，并按最后更新时间降序排列)</option>
+									<option value="1" ${orderBy==1?'selected':''}>只按最后更新时间排序</option>
+									<option value="2" ${orderBy==2?'selected':''}>只按主题发表时间排序</option>
+									<option value="3" ${orderBy==3?'selected':''}>只按回复数量排序</option>
 								</select>
 								<select name="asc">
-									<option value="false">降序</option>
-									<option value="true">升序</option>
+									<option value="false" ${asc==false?'selected':''}>降序</option>
+									<option value="true" ${asc==true?'selected':''}>升序</option>
 								</select>
 								<input type="IMAGE" src="${pageContext.request.contextPath}/style/blue/images/button/submit.PNG" align="ABSMIDDLE"/>
 							</td>

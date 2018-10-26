@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Forum;
@@ -35,6 +37,13 @@ public class ForumAction extends ActionSupport {
     private List<Topic> topics;
     private int pageNum = 1;
     private Page page;
+    
+    //条件变量
+    private Integer viewType;
+    private Integer orderBy;
+    private Boolean asc;
+    
+    
     /**
      * @Description:列表页面
      * @return
@@ -50,10 +59,23 @@ public class ForumAction extends ActionSupport {
      */
     public String show(){
 	forum = forumService.findById(forum.getForumId());
-	//topics =  topicService.findByForum(forum);
-	//分页列表
-	page = topicService.getPage(pageNum,forum);
 	
+	Object[] objects = new Object[4];
+	objects[0] = forum;
+	if(viewType==null){
+	    viewType = 0;
+	}
+	objects[1] = viewType;
+	if(orderBy==null){
+	    orderBy = 0;
+	}
+	objects[2] = orderBy;
+	if(asc==null||orderBy==0){
+	    asc = false;
+	}
+	objects[3] = asc;
+	//分页列表
+	page = topicService.getPage(pageNum,objects);
 	return "show";
     }
     
@@ -97,6 +119,30 @@ public class ForumAction extends ActionSupport {
 
     public void setPage(Page page) {
         this.page = page;
+    }
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
+    public int getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(int orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public Boolean getAsc() {
+        return asc;
+    }
+
+    public void setAsc(Boolean asc) {
+        this.asc = asc;
     }
     
     

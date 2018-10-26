@@ -1,5 +1,7 @@
 package cn.QEcode.base.impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
@@ -111,9 +116,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     
     public Page getPage(int pageNum,String hql,Object[] patameters){
 	
+	String name =  patameters[0].getClass().getSimpleName().toLowerCase();
 	//获取总页数
-	Long pagesum = (Long) hibernateTemplate.find(
-		"select count(*) from "+clazz.getSimpleName()).get(0);
+	DetachedCriteria detachedCriteria = DetachedCriteria.forClass(clazz);
+	detachedCriteria.add(Restrictions.eq(name, patameters[0]));
+	detachedCriteria.setProjection(Projections.count(clazz.getSimpleName().toLowerCase()+"Id"));
+	Long pagesum = (Long) hibernateTemplate.findByCriteria(detachedCriteria).get(0);
+	
 	int sum = pagesum.intValue();
 	// 构造page
 	Page page = new Page(pageNum, sum);
@@ -122,10 +131,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		    public List<Topic> doInHibernate(Session session)
 			    throws HibernateException {
 			Query query = session.createQuery(hql);
-			if(patameters!=null && patameters.length > 0){
-			    for(int i = 0;i<patameters.length;i++){
-				query.setParameter(i, patameters[i]);
-			    }
+			if(patameters!=null && patameters.length > 0){	
+			    System.out.println(patameters[0]);
+			    query.setParameter(0, patameters[0]);
 			}
 			query.setFirstResult(page.getStartIndex());
 			query.setMaxResults(page.getPageSize());
@@ -137,5 +145,5 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	return page;
 	
     }
-    
+
 }

@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,10 +98,30 @@ public class TopicServiceImpl implements TopicService {
      * @return
      */
     @Override
-    public Page getPage(int pageNum, Forum forum) {
-	String hql =  "from Topic where forum = ?  order by (case type when 2 then 2 else 0 end ) desc,last_update_time desc ";
+    public Page getPage(int pageNum, Object[] objects) {
+	String hql = "from Topic where forum = ? ";
+	//查看精华帖还是所有贴
+	if((Integer)objects[1]!=0){
+	    hql += " and type = 2 ";
+	}
+	//排序条件
+	if((Integer)objects[2]==0){
+	    hql += " order by (case type when 2 then 2 else 0 end ) ";
+	}else if((Integer)objects[2]==1){
+	    hql += " order by lastUpdateTime ";
+	}else if((Integer)objects[2]==2){
+	    hql += " order by postTime ";
+	}else if((Integer)objects[2]==3){
+	    hql += " order by replyCount ";
+	}
 	
-	return topicDao.getPage(pageNum, hql, new Object[] {forum});
+	//降序还是升序
+	if((Boolean) objects[3] == false){
+	    hql += "desc";
+	}
+	//String hql =  "from Topic where forum = ?  order by (case type when 2 then 2 else 0 end ) desc,last_update_time desc ";
+	
+	return topicDao.getPage(pageNum, hql, objects);
     }
 
 }

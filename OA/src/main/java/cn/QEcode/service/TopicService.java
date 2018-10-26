@@ -2,6 +2,8 @@ package cn.QEcode.service;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import cn.QEcode.base.BaseService;
 import cn.QEcode.domain.Forum;
 import cn.QEcode.domain.Page;
@@ -19,9 +21,9 @@ public interface TopicService extends BaseService<Topic> {
     /**
      * @Description:分页查询
      * @param pageNum
-     * @param forum
+     * @param objects
      * @return
      */
-    Page getPage(int pageNum, Forum forum);
+    Page getPage(int pageNum, Object[] objects);
 
 }

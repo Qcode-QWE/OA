@@ -2,6 +2,8 @@ package cn.QEcode.base;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import cn.QEcode.domain.Page;
 
 /**  
@@ -61,4 +63,5 @@ public interface BaseDao<T> {
      * @return
      */
     public Page getPage(int pageNum,String hql,Object[] patameters);
+    
 }

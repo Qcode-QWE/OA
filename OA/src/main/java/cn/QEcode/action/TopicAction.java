@@ -49,7 +49,6 @@ public class TopicAction  extends ActionSupport{
 	topic = topicService.findById(topic.getTopicId());
 	//replies = replyService.findByTopic(topic);
 	page = replyService.getPage(pageNum,topic);
-	
 	return "show";
     }
     
