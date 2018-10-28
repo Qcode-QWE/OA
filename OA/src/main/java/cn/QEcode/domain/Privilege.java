@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import com.alibaba.fastjson.parser.Feature;
 */ 
 @Entity
 @Table(name="privilege")
-public class Privilege {
+public class Privilege implements Serializable {
     	public Privilege(String url) {
 	super();
 	this.url = url;

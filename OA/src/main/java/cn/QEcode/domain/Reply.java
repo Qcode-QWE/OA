@@ -1,5 +1,7 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import javax.persistence.Table;
 */ 
 @Entity
 @Table(name="reply")
-public class Reply extends Article {
+public class Reply extends Article implements Serializable {
     
     @Id
     @Column(name="reply_id")

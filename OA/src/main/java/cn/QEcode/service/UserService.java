@@ -51,4 +51,12 @@ public interface UserService {
      */
     public User findByLoginNameAndPassword(String loginName, String password);
 
+    
+    
+    /**
+     * @Description:根据登陆名获取密码
+     * @param loginName
+     * @return
+     */
+    public User findPasswordByName(String loginName);
 }

@@ -59,7 +59,7 @@
                         <td><s:textfield name="user.phoneNumber" cssClass="InputStyle"/></td>
                     </tr>
                     <tr><td>E-mail</td>
-                        <td><s:textfield name="user.email" cssClass="InputStyle email"/></td>
+                        <td><s:textfield name="user.email" cssClass="InputStyle email required"/></td>
                     </tr>
                     <tr><td>备注</td>
                         <td><s:textarea name="user.description" cssClass="TextareaStyle {maxlength:100}"></s:textarea></td>

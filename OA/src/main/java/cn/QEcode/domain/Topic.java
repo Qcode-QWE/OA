@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="topic")
-public class Topic extends Article {
+public class Topic extends Article implements Serializable {
     	
     	/** 普通帖 */
 	public static final int TYPE_NORMAL = 0;

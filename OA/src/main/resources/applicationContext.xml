@@ -72,10 +72,78 @@
    <!-- 开启spring对注解事务的支持 -->
    <tx:annotation-driven transaction-manager="transactionManager"/>
  	    
+    <!-- Shiro 的Web过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+		<property name="loginUrl" value="/user/userAction_loginUI.action" />
+		<!-- 认证成功统一跳转到index.do，建议不配置，shiro认证成功自动到上一个请求路径 -->
+		<!-- <property name="successUrl" value="/index.action"/> -->
+		<!-- 通过unauthorizedUrl指定没有权限操作时跳转页面-->
+		<property name="unauthorizedUrl" value="/noPrivilegeError.jsp" />
+		<!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
+		<property name="filterChainDefinitions">
+		  <!--如果当前请求的url匹配下面的某个url模式，将会执行其配置的拦截器。 
+                	比如： anon拦截器表示匿名访问（即不需要登录即可访问） 
+                    authc拦截器表示需要身份认证通过后才能访问 
+                    roles[admin]拦截器表示需要有admin角色授权才能访问 
+                    perms["user:create"]拦截器表示需要有"user:create"权限才能访问。 -->
+			<value>
+				<!-- /** = authc 所有url都必须认证通过才可以访问-->
+				/user/userAction_logout.action = logout   <!-- 退出登录，直接指定拦截路径，之后无需写退出登录的控制器，即controller -->
+				/fckeditor/** = anon
+				/script/** = anon
+				/style/** = anon
+				/user/userAction_login.action = anon
+				/user/userAction_loginUI.action = anon
+				/** = authc
+			</value>
+		</property>
+    </bean>    
+    
+    <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+    	<property name="redirectUrl" value="user/userAction_loginout.action"></property>
+    </bean>
+    
+    
+    <!-- securityManager安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+			<property name="realm" ref="userRealm" />
+			<property name="cacheManager" ref="RedisCacheManager"/>
+	</bean>    
+    
+    <!-- realm -->
+	<bean id="userRealm" class="cn.QEcode.realm.UserRealm">
+		<!-- 配置密码匹配器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+               <property name="hashAlgorithmName" value="MD5"></property>
+                <!-- 加密次数 -->
+               <property name="hashIterations" value="2"></property>
+            </bean>
+        </property>
+		<!--启用缓存，默认关闭-->
+        <property name="cachingEnabled" value="true"/>
+       <!--  启用身份验证缓存，即缓存AuthenticationInfo，默认false -->
+        <property name="authenticationCachingEnabled" value="true"/>
+       <!--  启用授权缓存，即缓存AuthorizationInfo的信息，默认为false -->
+        <property name="authorizationCachingEnabled" value="true"/>
+	</bean>       
+        
+      <!-- 缓存管理器-->
+    <!--  这里配置我们自定义的缓存管理器-->
+    <bean id="RedisCacheManager" class="cn.QEcode.cache.RedisCacheManager"/>  
         
         
-        
-        
+     <!-- shiro session管理器 -->
+   <!--  <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        session 有效时间  单位是毫秒
+        <property name="globalSessionTimeout" value="300000"></property>
+        删除无效的session 	
+        <property name="deleteInvalidSessions" value="true"></property>
+    </bean>    
+         -->
         
 </beans>        
 

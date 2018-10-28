@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
 	<title>查看主题：${topic.title}</title>
@@ -48,10 +49,22 @@
 							<img border="0" src="${pageContext.request.contextPath}/style/images/reply.gif" />
 							回复
 						</a>
-						<a href="moveUI.html"><img border="0" src="${pageContext.request.contextPath}/style/images/edit.gif" />移动到其他版块</a>
-						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=2&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
-						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=1&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
-						<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=0&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为普通吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_0.gif" />普通</a>
+						<shiro:hasPermission name="forumManage/forumManageAction_list">
+							<a href="moveUI.html"><img border="0" src="${pageContext.request.contextPath}/style/images/edit.gif" />移动到其他版块</a>
+						</shiro:hasPermission>
+						
+						<shiro:hasPermission name="forumManage/forumManageAction_list">
+							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=2&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
+						</shiro:hasPermission>
+						
+						<shiro:hasPermission name="forumManage/forumManageAction_list">
+							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=1&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
+						</shiro:hasPermission>
+						
+						<shiro:hasPermission name="forumManage/forumManageAction_list">
+							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=0&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为普通吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_0.gif" />普通</a>
+						</shiro:hasPermission>
+						
 					</td>
 					<td width="3" class="ForumPageTableTitleRight">&nbsp;</td>
 				</tr>

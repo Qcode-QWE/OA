@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>用户列表</title>
@@ -46,9 +47,17 @@
                 </td>
                 <td>${description}&nbsp;</td>
                 <td>
-                	<s:a action="userAction_delete?user.userId=%{userId}" onclick="return delConfirm()">删除</s:a>
-                    <s:a action="userAction_editUI?user.userId=%{userId}">修改</s:a>
-					<s:a action="userAction_initPassword?user.userId=%{userId}" onclick="return window.confirm('您确定要初始化密码为123吗？')">初始化密码</s:a>
+                	<shiro:hasPermission name="user/userAction_delete">
+                		<s:a action="userAction_delete?user.userId=%{userId}" onclick="return delConfirm()">删除</s:a>
+                	</shiro:hasPermission>
+                    <shiro:hasPermission name="user/userAction_edit">
+                    	<s:a action="userAction_editUI?user.userId=%{userId}">修改</s:a>
+                    </shiro:hasPermission>
+                    
+                    <shiro:hasPermission name="user/userAction_initPassword">
+                    	<s:a action="userAction_initPassword?user.userId=%{userId}" onclick="return window.confirm('您确定要初始化密码为123吗？')">初始化密码</s:a>
+                    </shiro:hasPermission>
+					
                 </td>
             </tr>
         </s:iterator> 

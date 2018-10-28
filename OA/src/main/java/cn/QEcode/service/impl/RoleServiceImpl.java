@@ -78,10 +78,4 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findByIds(Long[] roleIds) {
 	return roleDao.findByIds(roleIds);
     }
-
-
-    
-    
-    
-    
 }

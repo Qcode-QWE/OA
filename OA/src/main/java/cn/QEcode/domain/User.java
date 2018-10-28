@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +29,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User implements Serializable{
     @Id
     @Column(name="user_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

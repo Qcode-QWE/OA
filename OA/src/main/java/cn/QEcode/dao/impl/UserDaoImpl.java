@@ -34,6 +34,16 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	}
 	return user;
     }
+
+    /**
+     * @Description:根据登陆名获取密码
+     * @param loginName
+     * @return
+     */
+    @Override
+    public User findPasswordByName(String loginName) {
+	return (User) hibernateTemplate.find("from User where loginName = ?",loginName).get(0);
+    }
     
     
     

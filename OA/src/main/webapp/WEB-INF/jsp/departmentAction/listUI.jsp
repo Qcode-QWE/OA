@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>部门列表</title>
@@ -37,8 +38,14 @@
 				<td>${parent.name}</td>
 				<td>${description}</td>
 				<td>
-					<s:a action="departmentAction_delete?department.departmentId=%{departmentId}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
-					<s:a action="departmentAction_editUI?department.departmentId=%{departmentId}">修改</s:a>
+					<shiro:hasPermission name="department/departmentAction_delete">
+						<s:a action="departmentAction_delete?department.departmentId=%{departmentId}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+					</shiro:hasPermission>
+					
+					<shiro:hasPermission name="department/departmentAction_edit">
+						<s:a action="departmentAction_editUI?department.departmentId=%{departmentId}">修改</s:a>
+					</shiro:hasPermission>
+					
 					&nbsp;
 				</td>
 			</tr>
@@ -49,7 +56,10 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+       		<shiro:hasPermission name="department/departmentAction_addUI">
+				<s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+			</shiro:hasPermission>
+            
            <c:if test="${departments==null||parentId != null }">
            	<s:a action="departmentAction_listUI?parentId=%{parent.parent.departmentId}">返回上一级</s:a>
            </c:if>

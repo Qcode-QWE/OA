@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import org.hibernate.engine.profile.Fetch;
 */ 
 @Entity
 @Table(name="department")
-public class Department {
+public class Department implements Serializable {
     @Id
     @Column(name="department_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

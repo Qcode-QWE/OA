@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+
 import cn.QEcode.domain.Department;
 
 public class DepartmentUtils {
@@ -41,6 +43,12 @@ public class DepartmentUtils {
 	    
 	}
     }
+    
+    public static void main(String[] args) {
+	String password = new Md5Hash("admin","123",2).toString();
+	System.out.println(password);
+    }
+    
     
     
 }

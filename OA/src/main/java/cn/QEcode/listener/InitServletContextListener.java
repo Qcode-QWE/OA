@@ -46,12 +46,12 @@ public class InitServletContextListener implements ServletContextListener {
 	System.out.println("-------顶级菜单已准备好----");
 	
 	//获取所有权限url
-	List<Privilege> privileges = privilegeService.findAllPrivileges();
+	/*List<Privilege> privileges = privilegeService.findAllPrivileges();
 	List<String> allPrivileges = new ArrayList<String>();
 	for(Privilege privilege : privileges){
 	    allPrivileges.add(privilege.getUrl());
 	}
-	application.setAttribute("allPrivilegeUrl", allPrivileges);
+	application.setAttribute("allPrivilegeUrl", allPrivileges);*/
     }
 
     /**

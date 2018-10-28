@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**  
@@ -9,7 +10,7 @@ import java.util.List;
 * @date 2018年10月12日  
 * @version 1.0  
 */ 
-public class Page {
+public class Page implements Serializable {
     
     private int currentNum;//当前页数
     private int pageSize = 5;//每页显示的页数

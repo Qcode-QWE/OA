@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 */ 
 @Entity
 @Table(name="forum")
-public class Forum {
+public class Forum implements Serializable {
     
     	@Id
     	@Column(name="forum_id")

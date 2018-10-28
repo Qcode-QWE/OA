@@ -1,5 +1,6 @@
 package cn.QEcode.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 * @version 1.0  
 */ 
 @MappedSuperclass
-public class Article {
+public class Article implements Serializable{
     	@Column(name="title")
 	private String title; // 标题
     	

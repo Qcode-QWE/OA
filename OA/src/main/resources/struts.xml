@@ -15,12 +15,13 @@
 	<!-- 定义拦截器 -->
 	<package name="default" extends="struts-default">
 		<interceptors>
-			<interceptor name="CheckPrivilegeInterceptor" class="cn.QEcode.interceptor.CheckPrivilegeInterceptor"></interceptor>
+			<!-- <interceptor name="CheckPrivilegeInterceptor" class="cn.QEcode.interceptor.CheckPrivilegeInterceptor"></interceptor> -->
 			<interceptor-stack name="myStack">
-				<interceptor-ref name="CheckPrivilegeInterceptor"></interceptor-ref>
+				<!-- <interceptor-ref name="CheckPrivilegeInterceptor"></interceptor-ref> -->
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
+		
 		<default-interceptor-ref name="myStack"></default-interceptor-ref>
 		<global-results>
 			<result name="loginUI">/WEB-INF/jsp/userAction/loginUI.jsp</result>

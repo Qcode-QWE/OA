@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>岗位列表</title>
@@ -44,9 +45,18 @@
 				<td>${name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
 				<td>
-					<s:a action="role/roleAction_delete?roleId=%{roleId}" onclick="return delConfirm()">删除</s:a>
-					<s:a action="role/roleAction_editUI?roleId=%{roleId}">修改</s:a>
-					<s:a action="role/roleAction_setPrivilegeUI?roleId=%{roleId}">设置权限</s:a>
+					<shiro:hasPermission name="role/roleAction_delete">
+						<s:a action="role/roleAction_delete?roleId=%{roleId}" onclick="return delConfirm()">删除</s:a>
+					</shiro:hasPermission>
+					
+					<shiro:hasPermission name="role/roleAction_edit">
+						<s:a action="role/roleAction_editUI?roleId=%{roleId}">修改</s:a>
+					</shiro:hasPermission>
+					
+					<shiro:hasPermission name="role/roleAction_edit">
+						<s:a action="role/roleAction_setPrivilegeUI?roleId=%{roleId}">设置权限</s:a>
+					</shiro:hasPermission>
+					
 				</td>
 			</tr>
 		</s:iterator>

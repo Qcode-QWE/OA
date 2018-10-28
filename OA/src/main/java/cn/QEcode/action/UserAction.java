@@ -7,6 +7,11 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
@@ -86,11 +91,10 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String add() {
-
 	List<Role> roles = roleService.findByIds(roleIds);
 	user.setRoles(new HashSet<Role>(roles));
-	user.setPassword(DigestUtils.md5DigestAsHex("123".getBytes()));
-
+	String password = new Md5Hash(user.getPassword(),"123",2).toString();
+	user.setPassword(password);
 	userService.save(user);
 	return "list";
     }
@@ -110,7 +114,8 @@ public class UserAction extends ActionSupport {
      */
     public String initPassword() {
 	user = userService.findById(user.getUserId());
-	user.setPassword(DigestUtils.md5DigestAsHex("123".getBytes()));
+	String password = new Md5Hash("123","123",2).toString();
+	user.setPassword(password);
 	userService.update(user);
 	return "list";
     }
@@ -168,7 +173,17 @@ public class UserAction extends ActionSupport {
      * @throws Exception
      */
     public String login() {
-	if (StringUtils.isNotBlank(user.getLoginName())
+	
+	Subject subject = SecurityUtils.getSubject();
+	UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(),user.getPassword());
+	try {
+	    subject.login(token);
+	} catch (Exception e) {
+	    addFieldError("login", "用户名或密码不正确");
+	    return "loginUI";
+	}
+	return "toIndex";
+	/*if (StringUtils.isNotBlank(user.getLoginName())
 		&& StringUtils.isNotBlank(user.getPassword())) {
 	    User u = userService.findByLoginNameAndPassword(
 		    user.getLoginName(), user.getPassword());
@@ -195,10 +210,13 @@ public class UserAction extends ActionSupport {
 		ActionContext.getContext().getSession().put("urlSet", urlSet);
 		return "toIndex";
 	    }
+	
 	}
 	addFieldError("login", "用户名或密码不正确");
 	
 	return "loginUI";
+	*/
+	
     }
 
     public User getUser() {
