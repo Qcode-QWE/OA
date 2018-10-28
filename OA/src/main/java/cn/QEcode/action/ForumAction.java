@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,7 @@ public class ForumAction extends ActionSupport {
      * @Description:列表页面
      * @return
      */
+    @RequiresPermissions("forum/forumAction_list")
     public String listUI(){
 	forums = forumService.findAll();
 	return "listUI";
@@ -57,6 +59,7 @@ public class ForumAction extends ActionSupport {
      * @Description:显示单个模块
      * @return		
      */
+    @RequiresPermissions("forum/forumAction_show")
     public String show(){
 	forum = forumService.findById(forum.getForumId());
 	

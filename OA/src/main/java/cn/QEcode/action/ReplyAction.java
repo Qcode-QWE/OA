@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 
@@ -39,11 +40,12 @@ public class ReplyAction extends ActionSupport {
      * @Description:增加回帖页面
      * @return
      */
+    @RequiresPermissions("reply/replyAction_add")
     public String addUI(){
 	topic = topicService.findById(topic.getTopicId());
 	return "addUI";
     }
-    
+    @RequiresPermissions("reply/replyAction_add")
     public String add(){
 	reply.setTopic(topicService.findById(topic.getTopicId()));
 	User user = (User) ActionContext.getContext().getSession().get("user");

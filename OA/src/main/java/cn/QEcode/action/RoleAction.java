@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:列表页面
      * @return
      */
+    @RequiresPermissions("role/roleAction_list")
     public String listUI(){
 	roles = roleService.findAll();
 	return "listUI";
@@ -63,6 +65,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:增加页面
      * @return
      */
+    @RequiresPermissions("role/roleAction_add")
     public String addUI(){
 	
 	return "addUI";
@@ -72,6 +75,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:增加实体
      * @return
      */
+    @RequiresPermissions("role/roleAction_add")
     public String add(){
 	roleService.save(role);
 	return "list";
@@ -81,6 +85,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:删除实体
      * @return
      */
+    @RequiresPermissions("role/roleAction_delete")
     public String delete(){
 	roleService.delete(role.getRoleId());
 	return "list";
@@ -90,6 +95,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:修改页面
      * @return
      */
+    @RequiresPermissions("role/roleAction_edit")
     public String editUI(){
 	Role r = roleService.findById(role.getRoleId());
 	BeanUtils.copyProperties(r,role);
@@ -100,6 +106,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:修改实体
      * @return
      */
+    @RequiresPermissions("role/roleAction_edit")
     public String edit(){
 	roleService.update(role);
 	return "list";
@@ -110,6 +117,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:设置权限页面
      * @return
      */
+    @RequiresPermissions("role/roleAction_edit")
     public String setPrivilegeUI(){
 	role = roleService.findById(role.getRoleId());
 	//获取权限列表
@@ -131,6 +139,7 @@ public class RoleAction implements ModelDriven<Role>{
      * @Description:设置权限
      * @return
      */
+    @RequiresPermissions("role/roleAction_edit")
     public String setPrivilege(){
 	List<Privilege> list = privilegeService.findByIds(privilegeIds);
 	role = roleService.findById(role.getRoleId());

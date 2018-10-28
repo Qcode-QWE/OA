@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 
@@ -44,14 +45,14 @@ public class TopicAction  extends ActionSupport{
     private int type;
     private int pageNum = 1;
     private Page page;
-    
+    @RequiresPermissions("topic/topicAction_show")
     public String show(){
 	topic = topicService.findById(topic.getTopicId());
 	//replies = replyService.findByTopic(topic);
 	page = replyService.getPage(pageNum,topic);
 	return "show";
     }
-    
+    @RequiresPermissions("topic/topicAction_add")
     public String addUI(){
 	forum = forumService.findById(forum.getForumId());
 	return "addUI";
@@ -61,6 +62,7 @@ public class TopicAction  extends ActionSupport{
      * @Description:新增主题
      * @return
      */
+    @RequiresPermissions("topic/topicAction_add")
     public String add(){
 	
 	topic.setForum(forumService.findById(forum.getForumId()));
@@ -80,6 +82,7 @@ public class TopicAction  extends ActionSupport{
      * @Description:修改为精华帖,置顶帖,普通贴
      * @return
      */
+    @RequiresPermissions("topic/topicAction_edit")
     public String edit(){
 	topic = topicService.findById(topic.getTopicId());
 	topic.setType(type);

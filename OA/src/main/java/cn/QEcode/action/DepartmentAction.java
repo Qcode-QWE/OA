@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class DepartmentAction {
      * @Description:列表页面
      * @return
      */
-    
+    @RequiresPermissions("department/departmentAction_list")
     public String listUI(){
 	//查询顶级部门
 	if(parentId == null){
@@ -57,6 +58,7 @@ public class DepartmentAction {
      * @Description:增加页面
      * @return
      */
+    @RequiresPermissions("department/departmentAction_add")
     public String addUI(){
 	if(parentId!=null){
 	    parent = departmentService.findById(parentId);
@@ -71,6 +73,7 @@ public class DepartmentAction {
      * @Description:增加实体
      * @return
      */
+    @RequiresPermissions("department/departmentAction_add")
     public String add(){
 	if(parentId!=null){
 	    parent = departmentService.findById(parentId);
@@ -84,6 +87,7 @@ public class DepartmentAction {
      * @Description:删除实体
      * @return
      */
+    @RequiresPermissions("department/departmentAction_delete")
     public String delete(){
 	departmentService.delete(department);
 	return "list";
@@ -93,6 +97,7 @@ public class DepartmentAction {
      * @Description:修改页面
      * @return
      */
+    @RequiresPermissions("department/departmentAction_edit")
     public String editUI(){
 	//departments = departmentService.findAll();
 	
@@ -105,6 +110,7 @@ public class DepartmentAction {
      * @Description:修改实体
      * @return
      */
+    @RequiresPermissions("department/departmentAction_edit")
     public String edit(){
 	if(department.getParent()!=null){
 	    department.setParent(departmentService.findById(department.getParent().getDepartmentId()));

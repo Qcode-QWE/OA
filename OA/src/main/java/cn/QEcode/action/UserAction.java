@@ -67,6 +67,7 @@ public class UserAction extends ActionSupport {
      * @Description:列表页面
      * @return
      */
+    @RequiresPermissions("user/userAction_list")
     public String listUI() {
 	// TODO 要修改为树状结构
 	users = userService.findAll();
@@ -77,6 +78,7 @@ public class UserAction extends ActionSupport {
      * @Description:增加页面
      * @return
      */
+    @RequiresPermissions("user/userAction_add")
     public String addUI() {
 	
 	// 获取部门名称列表
@@ -90,6 +92,7 @@ public class UserAction extends ActionSupport {
      * @Description:增加实体
      * @return
      */
+    @RequiresPermissions("user/userAction_add")
     public String add() {
 	List<Role> roles = roleService.findByIds(roleIds);
 	user.setRoles(new HashSet<Role>(roles));
@@ -103,6 +106,7 @@ public class UserAction extends ActionSupport {
      * @Description:删除实体
      * @return
      */
+    @RequiresPermissions("user/userAction_delete")
     public String delete() {
 	userService.delete(user.getUserId());
 	return "list";
@@ -112,6 +116,7 @@ public class UserAction extends ActionSupport {
      * @Description:初始化密码为123
      * @return
      */
+    @RequiresPermissions("user/userAction_edit")
     public String initPassword() {
 	user = userService.findById(user.getUserId());
 	String password = new Md5Hash("123","123",2).toString();
@@ -124,6 +129,7 @@ public class UserAction extends ActionSupport {
      * @Description:修改页面
      * @return
      */
+    @RequiresPermissions("user/userAction_edit")
     public String editUI() {
 
 	user = userService.findById(user.getUserId());
@@ -149,6 +155,7 @@ public class UserAction extends ActionSupport {
      * @Description:修改实体
      * @return
      */
+    @RequiresPermissions("user/userAction_edit")
     public String edit() {
 	List<Role> roles = roleService.findByIds(roleIds);
 	user.setRoles(new HashSet<Role>(roles));

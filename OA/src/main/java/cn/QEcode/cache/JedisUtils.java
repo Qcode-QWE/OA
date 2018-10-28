@@ -23,7 +23,7 @@ public class JedisUtils {
         //主机名称和端口号，开启redis的服务器和端口号
         jedisPool = new JedisPool(jedisConfig, "127.0.0.1",6379);
     }
-
+    
     public static Jedis getJedis() {
         return jedisPool.getResource();
     }
