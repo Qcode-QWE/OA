@@ -45,14 +45,14 @@ public class TopicAction  extends ActionSupport{
     private int type;
     private int pageNum = 1;
     private Page page;
-    @RequiresPermissions("topic/topicAction_show")
+    @RequiresPermissions("forum/forumAction_list")
     public String show(){
 	topic = topicService.findById(topic.getTopicId());
 	//replies = replyService.findByTopic(topic);
 	page = replyService.getPage(pageNum,topic);
 	return "show";
     }
-    @RequiresPermissions("topic/topicAction_add")
+    @RequiresPermissions("forum/forumAction_list")
     public String addUI(){
 	forum = forumService.findById(forum.getForumId());
 	return "addUI";
@@ -62,7 +62,7 @@ public class TopicAction  extends ActionSupport{
      * @Description:新增主题
      * @return
      */
-    @RequiresPermissions("topic/topicAction_add")
+    @RequiresPermissions("forum/forumAction_list")
     public String add(){
 	
 	topic.setForum(forumService.findById(forum.getForumId()));
@@ -82,7 +82,7 @@ public class TopicAction  extends ActionSupport{
      * @Description:修改为精华帖,置顶帖,普通贴
      * @return
      */
-    @RequiresPermissions("topic/topicAction_edit")
+    @RequiresPermissions("forumManage/forumManageAction_list")
     public String edit(){
 	topic = topicService.findById(topic.getTopicId());
 	topic.setType(type);

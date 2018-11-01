@@ -185,6 +185,8 @@ public class UserAction extends ActionSupport {
 	UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(),user.getPassword());
 	try {
 	    subject.login(token);
+	    user = (User) subject.getPrincipals().getPrimaryPrincipal();
+		ActionContext.getContext().getSession().put("user", user);
 	} catch (Exception e) {
 	    addFieldError("login", "用户名或密码不正确");
 	    return "loginUI";

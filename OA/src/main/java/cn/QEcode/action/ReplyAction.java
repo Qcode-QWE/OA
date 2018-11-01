@@ -40,12 +40,12 @@ public class ReplyAction extends ActionSupport {
      * @Description:增加回帖页面
      * @return
      */
-    @RequiresPermissions("reply/replyAction_add")
+    @RequiresPermissions("forum/forumAction_list")
     public String addUI(){
 	topic = topicService.findById(topic.getTopicId());
 	return "addUI";
     }
-    @RequiresPermissions("reply/replyAction_add")
+    @RequiresPermissions("forum/forumAction_list")
     public String add(){
 	reply.setTopic(topicService.findById(topic.getTopicId()));
 	User user = (User) ActionContext.getContext().getSession().get("user");

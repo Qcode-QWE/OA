@@ -94,7 +94,6 @@ public class UserRealm  extends AuthorizingRealm{
 	//获取用户名
 	String name = (String) token.getPrincipal();
 	User user = userService.findPasswordByName(name);
-	ActionContext.getContext().getSession().put("user", user);
 	//盐值
 	//ByteSource credentialsSalt = ByteSource.Util.bytes("123");
 	//改用redis缓存

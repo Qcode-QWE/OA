@@ -59,7 +59,7 @@ public class ForumAction extends ActionSupport {
      * @Description:显示单个模块
      * @return		
      */
-    @RequiresPermissions("forum/forumAction_show")
+    @RequiresPermissions("forum/forumAction_list")
     public String show(){
 	forum = forumService.findById(forum.getForumId());
 	
