@@ -56,7 +56,6 @@ public class UserRealm  extends AuthorizingRealm{
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
 	    PrincipalCollection principals) {
-	
 	User user = (User) principals.getPrimaryPrincipal();
 	List<Privilege> privileges = new ArrayList<Privilege>();
 	

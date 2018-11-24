@@ -67,6 +67,7 @@
     
     <!-- 其他功能超链接 -->
     <div id="TableTail">
+    	
         <div id="TableTail_inside">
             <s:a action="userAction_addUI"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
         </div>
