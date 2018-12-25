@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -61,6 +62,7 @@ public class User implements Serializable{
     //use与职位的关系是多对多的关系
     @ManyToMany(targetEntity=Role.class,fetch=FetchType.EAGER)
     @JoinColumn(name="roles",referencedColumnName="roles_id")
+    @OrderBy("roleId")
     private Set<Role> roles = new HashSet<Role>();
     
     

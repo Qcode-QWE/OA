@@ -18,7 +18,14 @@ public interface TopicDao extends BaseDao<Topic>{
      */
     List<Topic> findByForum(Forum forum);
 
-
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param hql
+     * @param patameters
+     * @return
+     */
+    public Page getPage(int pageNum,String hql,List<Object> patameters);
 
 
 

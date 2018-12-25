@@ -25,6 +25,24 @@
     </div>
 </div>
 
+<form action="${pageContext.request.contextPath}/role/roleAction_listUI.action">
+	<div id="TableTail">
+		<div id="TableTail_inside">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" align="left">
+				<tr valign=bottom>
+					<td></td>
+					<td>							
+						岗位名称:<input type="text" name="roleName" value="${roleName}"/>
+						岗位说明:<input type="text" name="roleDescription" value="${roleDescription}"/>
+					
+						<input type="IMAGE" src="${pageContext.request.contextPath}/style/blue/images/button/submit.PNG" align="ABSMIDDLE"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+
 <div id="MainArea">
     <table cellspacing="0" cellpadding="0" class="TableStyle">
        
@@ -40,7 +58,7 @@
 		<!--显示数据列表-->
         <tbody id="TableData" class="dataContainer" datakey="roleList">
         
-        <s:iterator value="%{roles}">
+        <s:iterator value="%{page.records}">
 			<tr class="TableDetail1 template">
 				<td>${name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
@@ -70,6 +88,14 @@
             <s:a action="roleAction_addUI"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
         </div>
     </div>
+    
+    <!--分页信息-->
+	<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
+	<script type="text/javascript">
+		function gotoPage( pageNum ){
+			window.location.href = "roleAction_listUI.action?pageNum=" + pageNum;
+		}
+	</script>
 </div>
 </body>
 </html>

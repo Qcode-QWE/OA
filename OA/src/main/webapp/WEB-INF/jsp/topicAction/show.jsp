@@ -34,6 +34,10 @@
 				<s:a action="topicAction_addUI?forum.forumId=%{topic.forum.forumId}">
 					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
 				</s:a>
+				&nbsp;
+				<a href="${pageContext.request.contextPath}/reply/replyAction_find.action?topic.topicId=${topic.topicId}&pageNum=1&findName=${null}">
+					<img alt="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/query.PNG">
+				</a>
 			</span>
 		</div>
 		
@@ -54,11 +58,11 @@
 						</shiro:hasPermission>
 						
 						<shiro:hasPermission name="forumManage/forumManageAction_list">
-							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=2&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
+							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=1&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为精华吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_1.gif" />精华</a>
 						</shiro:hasPermission>
 						
 						<shiro:hasPermission name="forumManage/forumManageAction_list">
-							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=1&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
+							<a href="${pageContext.request.contextPath}/topic/topicAction_edit.action?type=2&topic.topicId=${topic.topicId}" onClick="return confirm('要把本主题设为置顶吗？')"><img border="0" src="${pageContext.request.contextPath}/style/images/topicType_2.gif" />置顶</a>
 						</shiro:hasPermission>
 						
 						<shiro:hasPermission name="forumManage/forumManageAction_list">

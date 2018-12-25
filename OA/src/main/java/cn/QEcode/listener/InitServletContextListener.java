@@ -1,5 +1,6 @@
 package cn.QEcode.listener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -17,6 +19,7 @@ import com.opensymphony.xwork2.ActionContext;
 import cn.QEcode.domain.Privilege;
 import cn.QEcode.service.PrivilegeService;
 import cn.QEcode.service.impl.PrivilegeServiceImpl;
+import cn.QEcode.solr.SolrUtils;
 
 /**  
 * <p>Title: InitServletContextListener.java</p>  
@@ -31,7 +34,6 @@ public class InitServletContextListener implements ServletContextListener {
      * @Description:初始化
      * @param sce
      */
- 
     public void contextInitialized(ServletContextEvent sce) {
 	
 	ServletContext application = sce.getServletContext();
@@ -44,7 +46,17 @@ public class InitServletContextListener implements ServletContextListener {
 	application.setAttribute("topPrivileges", topPrivileges);
 	
 	System.out.println("-------顶级菜单已准备好----");
-	
+	SolrUtils solrUtils = (SolrUtils) ac.getBean("solrUtils");
+	try {	
+	    solrUtils.InitSolr();
+	} catch (SolrServerException e) {
+	    // TODO 自动生成的 catch 块
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO 自动生成的 catch 块
+	    e.printStackTrace();
+	}
+	System.out.println("-------索引已准备好----");
 	//获取所有权限url
 	/*List<Privilege> privileges = privilegeService.findAllPrivileges();
 	List<String> allPrivileges = new ArrayList<String>();

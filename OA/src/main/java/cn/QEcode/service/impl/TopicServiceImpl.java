@@ -1,5 +1,6 @@
 package cn.QEcode.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -31,7 +32,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource(name="TopicDao")
     private TopicDao topicDao;
-    @Resource(name="")
+    @Resource(name="ForumService")
     private ForumService forumServicer;
     
     @Override
@@ -100,6 +101,8 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Page getPage(int pageNum, Object[] objects) {
 	String hql = "from Topic where forum = ? ";
+	List<Object> ob = new ArrayList<Object>();
+	ob.add(objects[0]);
 	//查看精华帖还是所有贴
 	if((Integer)objects[1]!=0){
 	    hql += " and type = 2 ";
@@ -121,7 +124,7 @@ public class TopicServiceImpl implements TopicService {
 	}
 	//String hql =  "from Topic where forum = ?  order by (case type when 2 then 2 else 0 end ) desc,last_update_time desc ";
 	
-	return topicDao.getPage(pageNum, hql, objects);
+	return topicDao.getPage(pageNum, hql, ob);
     }
 
 }

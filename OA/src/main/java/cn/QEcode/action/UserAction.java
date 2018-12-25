@@ -1,5 +1,6 @@
 package cn.QEcode.action;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,7 @@ import org.springframework.util.DigestUtils;
 
 import cn.QEcode.dao.RoleDao;
 import cn.QEcode.domain.Department;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Privilege;
 import cn.QEcode.domain.Role;
 import cn.QEcode.domain.User;
@@ -53,7 +55,7 @@ public class UserAction extends ActionSupport {
     private DepartmentService departmentService;
     @Resource(name = "RoleService")
     private RoleService roleService;
-
+    
     private List<User> users;
     // 部门名称列表
     private List<Department> departments;
@@ -62,7 +64,14 @@ public class UserAction extends ActionSupport {
     private List<Role> roleList;
     // 获取页面返回的职位id列表
     private Long[] roleIds;
-
+    //查询条件
+    private String userName;
+    private Long roleId;
+    private Long departmentId;
+    
+    private int pageNum = 1;
+    private Page page;
+    
     /**
      * @Description:列表页面
      * @return
@@ -70,10 +79,28 @@ public class UserAction extends ActionSupport {
     @RequiresPermissions("user/userAction_list")
     public String listUI() {
 	// TODO 要修改为树状结构
-	users = userService.findAll();
+	//users = userService.findAll();
+	List<Role> roles = new ArrayList<Role>();
+	Department department = null;
+	if(roleId!=null&&roleId!=0){
+	    roles.add(roleService.findById(roleId));
+	}
+	if(departmentId!=null&&departmentId!=0){
+	    department = departmentService.findById(departmentId);
+	}	
+	page = userService.getPage(pageNum,userName,roles,department);
+	//查询条件
+	//部门树
+	departments = DepartmentUtils.getTree(departmentService.findToList());
+	//岗位
+	roleList = roleService.findAll();
+	//分页查询
 	return "listUI";
     }
-
+    
+    
+    
+    
     /**
      * @Description:增加页面
      * @return
@@ -267,5 +294,76 @@ public class UserAction extends ActionSupport {
     public void setRoleIds(Long[] roleIds) {
 	this.roleIds = roleIds;
     }
+
+
+
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+
+
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+
+
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+
+
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
+
+
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+
+
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+
+
+
+    public Page getPage() {
+        return page;
+    }
+
+
+
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
+
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+
+
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 
 }

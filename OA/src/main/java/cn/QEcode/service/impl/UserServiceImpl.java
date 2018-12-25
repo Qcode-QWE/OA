@@ -1,15 +1,24 @@
 package cn.QEcode.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.QEcode.dao.UserDao;
+import cn.QEcode.domain.Department;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Role;
+import cn.QEcode.domain.Topic;
 import cn.QEcode.domain.User;
 import cn.QEcode.service.UserService;
 
@@ -90,6 +99,25 @@ public class UserServiceImpl implements UserService {
     public User findPasswordByName(String loginName){
 	return userDao.findPasswordByName(loginName);
     }
+    
+    public Page getPage(int pageNum,String name,List<Role> roles,Department department){
+	DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
+	
+	if(StringUtils.isNotBlank(name)){
+	    detachedCriteria.add(Restrictions.like("name", "%"+name+"%"));
+	}
+	
+	if(roles!=null&&roles.size()>0){
+	    detachedCriteria.add(Restrictions.in("roles", roles));
+	}
+	
+	if(department!=null){
+	    detachedCriteria.add(Restrictions.eq("departmentId", department));
+	}
+	
+	return userDao.getPage(pageNum, detachedCriteria);
+    }
+    
     
 
 }

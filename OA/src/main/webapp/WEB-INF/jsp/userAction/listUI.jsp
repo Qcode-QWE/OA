@@ -1,10 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <title>用户列表</title>
     <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
+
 <body>
 <div id="Title_bar">
     <div id="Title_bar_Head"> 
@@ -17,8 +20,37 @@
 </div>
 
 <div id="MainArea">
+	<form action="${pageContext.request.contextPath}/user/userAction_listUI.action">
+		<div id="TableTail">
+			<div id="TableTail_inside">
+				<table border="0" cellspacing="0" cellpadding="0" height="100%" align="left">
+					<tr valign=bottom>
+						<td></td>
+						<td>							
+							姓名:<input type="text" name="user.name" value=""/>
+							所属部门:
+							<select name="departmentId" >
+								<option value="0">====请选择====</option>
+								<c:forEach items="${departments}" var="department">
+									<option value="${department.departmentId}" ${departmentId==department.departmentId?"selected":""}>${department.name}</option>
+								</c:forEach>
+							</select>
+							岗位:
+							<select name="RoleId" >
+								<option value="0">==请选择==</option>
+								<c:forEach items="${roleList}" var="role">
+									<option value="${role.roleId}" ${RoleId==role.roleId?"selected":""}>${role.name}</option>
+								</c:forEach>
+							</select>
+						
+							<input type="IMAGE" src="${pageContext.request.contextPath}/style/blue/images/button/submit.PNG" align="ABSMIDDLE"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</form>
     <table cellspacing="0" cellpadding="0" class="TableStyle">
-       
         <!-- 表头-->
         <thead>
             <tr align=center valign=middle id=TableTitle>
@@ -34,7 +66,7 @@
         <!--显示数据列表-->
         <tbody id="TableData" class="dataContainer" datakey="users">
         
-        <s:iterator value="%{users}"> 
+        <s:iterator value="%{page.records}"> 
             <tr class="TableDetail1 template">
                 <td>${loginName}&nbsp;</td>
                 <td>${name}&nbsp;</td>
@@ -73,6 +105,12 @@
         </div>
     </div>
 </div>
-
+	<!--分页信息-->
+	<%@ include file="/WEB-INF/jsp/public/pageView.jspf" %>
+	<script type="text/javascript">
+		function gotoPage( pageNum ){
+			window.location.href = "userAction_listUI.action?pageNum=" + pageNum;
+		}
+	</script>
 </body>
 </html>

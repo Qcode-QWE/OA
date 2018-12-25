@@ -16,7 +16,6 @@ public class DepartmentUtils {
     public static List<Department> getTree(List<Department> toList) {
 	List<Department> list = new ArrayList<Department>();
 	walkTree(toList, list, "　");
-	
 	return list;
     }
     

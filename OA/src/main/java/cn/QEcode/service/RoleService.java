@@ -2,6 +2,7 @@ package cn.QEcode.service;
 
 import java.util.List;
 
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Role;
 
 public interface RoleService {
@@ -44,6 +45,15 @@ public interface RoleService {
      * @return
      */
     public List<Role> findByIds(Long[] roleIds);
+
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param roleName
+     * @param roleDescription
+     * @return
+     */
+    public Page getPage(int pageNum, String roleName, String roleDescription);
 
 
 }

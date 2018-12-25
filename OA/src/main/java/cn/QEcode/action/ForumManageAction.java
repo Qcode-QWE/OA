@@ -1,14 +1,18 @@
 package cn.QEcode.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import cn.QEcode.domain.Forum;
 import cn.QEcode.service.ForumService;
+import cn.QEcode.solr.SolrUtils;
 
 import com.opensymphony.xwork2.ActionSupport;
 

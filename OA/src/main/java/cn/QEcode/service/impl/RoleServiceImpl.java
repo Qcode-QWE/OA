@@ -5,11 +5,16 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.QEcode.dao.RoleDao;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Role;
 import cn.QEcode.service.RoleService;
 
@@ -77,5 +82,28 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findByIds(Long[] roleIds) {
 	return roleDao.findByIds(roleIds);
+    }
+
+
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param roleName
+     * @param roleDescription
+     * @return
+     */
+    @Override
+    public Page getPage(int pageNum, String roleName, String roleDescription) {
+	DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Role.class);
+	if(StringUtils.isNotBlank(roleName)){
+	    detachedCriteria.add(Restrictions.like("name", "%"+roleName+"%"));
+	}
+	if(StringUtils.isNotBlank(roleDescription)){
+	    detachedCriteria.add(Restrictions.like("description", "%"+roleDescription+"%"));
+	}
+	detachedCriteria.addOrder(Order.asc("roleId"));
+	Page page = roleDao.getPage(pageNum,detachedCriteria);
+	
+	return page;
     }
 }

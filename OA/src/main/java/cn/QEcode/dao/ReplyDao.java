@@ -16,5 +16,21 @@ public interface ReplyDao extends BaseDao<Reply> {
      */
     List<Reply> findByTopic(Topic topic);
 
-
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param hql
+     * @param patameters
+     * @return
+     */
+    public Page getPage(int pageNum,String hql,List<Object> patameters);
+    
+    /**
+     * @Description:获取查询结果
+     * @param reply
+     * @return
+     */
+    public int getFindPage(Reply reply);
+    
+    
 }

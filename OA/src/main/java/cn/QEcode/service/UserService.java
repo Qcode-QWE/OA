@@ -1,7 +1,10 @@
 package cn.QEcode.service;
 
 import java.util.List;
+import java.util.Set;
 
+import cn.QEcode.domain.Department;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Role;
 import cn.QEcode.domain.User;
 
@@ -12,6 +15,8 @@ public interface UserService {
      * @return
      */
     public List<User> findAll();
+    
+    public Page getPage(int pageNum,String loginName,List<Role> roles,Department department);
     
     /**
      * @Description:删除用户
@@ -59,4 +64,5 @@ public interface UserService {
      * @return
      */
     public User findPasswordByName(String loginName);
+    
 }

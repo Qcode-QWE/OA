@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ModelDriven;
 
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.Privilege;
 import cn.QEcode.domain.Role;
 import cn.QEcode.service.PrivilegeService;
@@ -42,6 +43,12 @@ public class RoleAction implements ModelDriven<Role>{
     private Long[] privilegeIds;
     private List<Privilege> privilegeList;
     private List<Privilege> topList;
+    private int pageNum = 1;
+    private Page page;
+    
+    //查询条件
+    private String roleName;
+    private String roleDescription;
     
     
     @Override
@@ -57,7 +64,9 @@ public class RoleAction implements ModelDriven<Role>{
      */
     @RequiresPermissions("role/roleAction_list")
     public String listUI(){
-	roles = roleService.findAll();
+	//roles = roleService.findAll();
+	//分页查询
+	page = roleService.getPage(pageNum,roleName,roleDescription);
 	return "listUI";
     }
     
@@ -190,6 +199,38 @@ public class RoleAction implements ModelDriven<Role>{
 
     public void setTopList(List<Privilege> topList) {
         this.topList = topList;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleDescription() {
+        return roleDescription;
+    }
+
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 
     

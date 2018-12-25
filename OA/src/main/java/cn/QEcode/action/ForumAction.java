@@ -62,7 +62,6 @@ public class ForumAction extends ActionSupport {
     @RequiresPermissions("forum/forumAction_list")
     public String show(){
 	forum = forumService.findById(forum.getForumId());
-	
 	Object[] objects = new Object[4];
 	objects[0] = forum;
 	if(viewType==null){

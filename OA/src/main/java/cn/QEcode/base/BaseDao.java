@@ -55,13 +55,6 @@ public interface BaseDao<T> {
      */
     public List<T> findAll();
     
-    /**
-     * @Description:分页查询
-     * @param pageNum
-     * @param hql
-     * @param patameters
-     * @return
-     */
-    public Page getPage(int pageNum,String hql,Object[] patameters);
+    
     
 }

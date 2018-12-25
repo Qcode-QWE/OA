@@ -42,17 +42,15 @@
 			<font class="MenuPoint"> &gt; </font>
 			${forum.name}
 			<span style="margin-left:30px;">
-				<%-- <a href="${pageContext.request.contextPath}/topic/topicAction_addUI?forum.forumId=${forum.forumId}">
-					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
-				</a> --%>
-				
 				<a href="${pageContext.request.contextPath}/topic/topicAction_addUI.action?forum.forumId=${forum.forumId}">
 					<img align="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/publishNewTopic.png"/>
 				</a>
-				
+				&nbsp;
+				<a href="${pageContext.request.contextPath}/topic/topicAction_find.action?forum.forumId=${forum.forumId}&pageNum=1&findName=${null}">
+					<img alt="absmiddle" src="${pageContext.request.contextPath}/style/blue/images/button/query.PNG">
+				</a>
 			</span>
 		</div>
-		
 		<div class="ForumPageTableBorder">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<!--表头-->

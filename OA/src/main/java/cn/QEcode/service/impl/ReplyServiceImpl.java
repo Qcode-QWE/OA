@@ -1,5 +1,6 @@
 package cn.QEcode.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -71,8 +72,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public Reply findById(Long id) {
-	// TODO 自动生成的方法存根
-	return null;
+	return replyDao.findById(id);
     }
 
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED)
@@ -105,7 +105,18 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public Page getPage(int pageNum, Topic topic) {
 	String hql  = "from Reply where topic = ? order by postTime";
-	return replyDao.getPage(pageNum,hql,new Object[] {topic});
+	List<Object> objects = new ArrayList<Object>();
+	objects.add(topic);
+	return replyDao.getPage(pageNum,hql,objects);
+    }
+
+    @Override
+    public Page getFindPage(Reply reply) {
+	//获取该回帖在第几页
+	int pagenum = replyDao.getFindPage(reply);
+	Topic topic = topicService.findById(reply.getTopic().getTopicId());
+	Page page = getPage(pagenum,topic);
+	return page;
     }
     
     

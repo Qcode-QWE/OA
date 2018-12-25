@@ -114,36 +114,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	return (List<T>) hibernateTemplate.find("from "+clazz.getSimpleName());
     }
     
-    public Page getPage(int pageNum,String hql,Object[] patameters){
-	
-	String name =  patameters[0].getClass().getSimpleName().toLowerCase();
-	//获取总页数
-	DetachedCriteria detachedCriteria = DetachedCriteria.forClass(clazz);
-	detachedCriteria.add(Restrictions.eq(name, patameters[0]));
-	detachedCriteria.setProjection(Projections.count(clazz.getSimpleName().toLowerCase()+"Id"));
-	Long pagesum = (Long) hibernateTemplate.findByCriteria(detachedCriteria).get(0);
-	
-	int sum = pagesum.intValue();
-	// 构造page
-	Page page = new Page(pageNum, sum);
-	List<Topic> topics = (List<Topic>) hibernateTemplate
-		.execute(new HibernateCallback<List<Topic>>() {
-		    public List<Topic> doInHibernate(Session session)
-			    throws HibernateException {
-			Query query = session.createQuery(hql);
-			if(patameters!=null && patameters.length > 0){	
-			    System.out.println(patameters[0]);
-			    query.setParameter(0, patameters[0]);
-			}
-			query.setFirstResult(page.getStartIndex());
-			query.setMaxResults(page.getPageSize());
-			return query.list();
-		    }
-		});
-	page.setRecords(topics);
-
-	return page;
-	
-    }
+    
 
 }

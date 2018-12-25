@@ -78,6 +78,8 @@ public class DepartmentAction {
 	if(parentId!=null){
 	    parent = departmentService.findById(parentId);
 	    department.setParent(parent);
+	}else{
+	    department.setParent(null);
 	}
 	departmentService.add(department);
 	return "list";
@@ -100,7 +102,6 @@ public class DepartmentAction {
     @RequiresPermissions("department/departmentAction_edit")
     public String editUI(){
 	//departments = departmentService.findAll();
-	
 	departments = DepartmentUtils.getTree(departmentService.findToList());
 	department = departmentService.findById(department.getDepartmentId());
 	return "editUI";

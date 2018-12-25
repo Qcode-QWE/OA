@@ -56,7 +56,7 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-       		<shiro:hasPermission name="department/departmentAction_addUI">
+       		<shiro:hasPermission name="department/departmentAction_add">
 				<s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
 			</shiro:hasPermission>
             

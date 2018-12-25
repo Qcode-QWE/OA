@@ -1,7 +1,12 @@
 package cn.QEcode.dao;
 
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+
 import cn.QEcode.base.BaseDao;
 import cn.QEcode.base.impl.BaseDaoImpl;
+import cn.QEcode.domain.Page;
 import cn.QEcode.domain.User;
 
 public interface UserDao extends BaseDao<User> {
@@ -26,4 +31,13 @@ public interface UserDao extends BaseDao<User> {
      */
     User findPasswordByName(String loginName);
 
+    /**
+     * @Description:分页查询
+     * @param pageNum
+     * @param hql
+     * @param patameters
+     * @return
+     */
+    //public Page getPage(int pageNum,String hql,List<Object> patameters);
+    public Page getPage(int pageNum,DetachedCriteria  detachedCriteria);
 }

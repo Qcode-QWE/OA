@@ -31,5 +31,13 @@ public interface ReplyService extends BaseService<Reply> {
      */
     public Page getPage(int pageNum, Topic topic);
     
+    /**
+     * @Description:查找查询结果
+     * @param topic
+     * @param reply
+     * @return
+     */
+    public Page getFindPage(Reply reply);
+    
     
 }
